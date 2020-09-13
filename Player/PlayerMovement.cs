@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     string ModificarAGosto = "//";
     public float speed;
+    public float runSpeed;
 
     //public GameObject somPasso1, somPasso2;
 
@@ -34,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 velocity.y = 0f;
             }
+
+            if(Input.GetAxis("Run") > 0)
+                controller.Move(move * runSpeed * Time.deltaTime);
 
         /*if(inputX != 0 || inputZ != 0)
         {
