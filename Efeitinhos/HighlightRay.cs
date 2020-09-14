@@ -11,10 +11,7 @@ public class HighlightRay : MonoBehaviour
 
     void Update()
     {
-        int x = Screen.width/2;
-        int y = Screen.height/2;
-
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(x,y));
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if(Physics.Raycast(ray, out hit, raycastDist))

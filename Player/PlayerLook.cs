@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    public Transform eixoCam;
     public Transform player;
     float xRotation = 0f;
 
