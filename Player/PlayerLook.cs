@@ -24,8 +24,8 @@ public class PlayerLook : MonoBehaviour
 
     void Update()
     {
-        //if(CanvasManager.jogoPausado == false && CanvasManager.fechandoMenu == false && CutsceneDesenhos.acabouCutscene)
-        //{
+        if(CanvasManager.jogoPausado == false)
+        {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -41,16 +41,6 @@ public class PlayerLook : MonoBehaviour
                 Quaternion pegaRotacaoEixo = Quaternion.Euler(eixoCam.rotation.x, player.rotation.y, player.rotation.z);
                 player.rotation = pegaRotacaoEixo;
             }*/
-        //} 
-
-        /*else if(CanvasManager.jogoPausado == false && CanvasManager.fechandoMenu)
-        {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, CanvasManager.rot, 0.2f);
-        }
-
-        if(transform.localRotation == CanvasManager.rot)
-        {
-            CanvasManager.fechandoMenu = false;
-        }*/
+        } 
     }
 }

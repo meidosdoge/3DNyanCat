@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //if(CanvasManager.jogoPausado == false)
-        //{
+        if(CanvasManager.jogoPausado == false)
+        {
             float inputX = Input.GetAxis("Horizontal");
             float inputZ = Input.GetAxis("Vertical");
 
@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
             if(Input.GetAxis("Run") > 0)
                 controller.Move(move * runSpeed * Time.deltaTime);
 
-        /*if(inputX != 0 || inputZ != 0)
-        {
+            /*if(inputX != 0 || inputZ != 0)
+            {
             if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
             {
                 somPasso1.SetActive(true);
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             somPasso1.SetActive(false);
             somPasso2.SetActive(false);
         }*/
-        //}
+        }
     }
 
     /*void OnDisable()
