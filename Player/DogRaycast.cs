@@ -40,15 +40,15 @@ public class DogRaycast : MonoBehaviour
                 distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
 
             if (distanceObjRay >= distLonge ) {
-                Debug.Log("maior que 10");
+                Debug.Log("maior que: " + distLonge);
                 Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.green);
             }
             else if (distanceObjRay >= distMedio){
-                Debug.Log("menor que 10 e maior que 4");
+                Debug.Log("menor que " + distLonge + " e maior que " + distMedio);
                 Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.yellow);
             }
             else if (distanceObjRay < distMedio){
-                Debug.Log("menor que 4");
+                Debug.Log("menor que: " + distMedio);
                 Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.red);
             }
 
