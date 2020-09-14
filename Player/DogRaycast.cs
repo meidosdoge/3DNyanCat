@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DogRaycast : MonoBehaviour
 {
+    public static int distDogObj;
+
     float distanceObjRay;
 
     //modificar a gosto
@@ -13,43 +15,26 @@ public class DogRaycast : MonoBehaviour
     public Camera mainCamera;
     public float diamRay, distMedio, distLonge;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        int x = Screen.width / 2;
-        int y = Screen.height / 2;
-
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(x, y)); //pega as coordenadas do mouse na tela e converte para o world space,
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); //pega as coordenadas do mouse na tela e converte para o world space,
         //saindo da câmera e chegando ao primeiro ponto de impacto
+
         RaycastHit whatIHit;
 
+        if (Physics.Raycast(ray, out whatIHit, raycastDistance)) { 
 
-        //if (Physics.SphereCast(ray, diamRay, out whatIHit, raycastDistance)) {
-        if (Physics.Raycast(ray, out whatIHit, raycastDistance))
-            {
-
-                distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
+            distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
 
             if (distanceObjRay >= distLonge ) {
-                Debug.Log("maior que: " + distLonge);
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.green);
+                distDogObj = 2;
             }
             else if (distanceObjRay >= distMedio){
-                Debug.Log("menor que " + distLonge + " e maior que " + distMedio);
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.yellow);
+                distDogObj = 1;
             }
             else if (distanceObjRay < distMedio){
-                Debug.Log("menor que: " + distMedio);
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.red);
+                distDogObj = 0;
             }
 
         }

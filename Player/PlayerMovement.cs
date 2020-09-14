@@ -12,13 +12,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     string ModificarAGosto = "//";
     public float speed;
+    public float runSpeed;
 
     //public GameObject somPasso1, somPasso2;
 
     void Update()
     {
-        //if(CanvasManager.jogoPausado == false)
-        //{
+        if(CanvasManager.jogoPausado == false)
+        {
             float inputX = Input.GetAxis("Horizontal");
             float inputZ = Input.GetAxis("Vertical");
 
@@ -35,8 +36,11 @@ public class PlayerMovement : MonoBehaviour
                 velocity.y = 0f;
             }
 
-        /*if(inputX != 0 || inputZ != 0)
-        {
+            if(Input.GetAxis("Run") > 0)
+                controller.Move(move * runSpeed * Time.deltaTime);
+
+            /*if(inputX != 0 || inputZ != 0)
+            {
             if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
             {
                 somPasso1.SetActive(true);
@@ -53,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             somPasso1.SetActive(false);
             somPasso2.SetActive(false);
         }*/
-        //}
+        }
     }
 
     /*void OnDisable()
