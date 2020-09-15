@@ -27,7 +27,7 @@ public class Farejar : MonoBehaviour
             {
                 EstadosPlayer.estadoHabilidade = "inativo";
             }
-            else if(farejaDur >= uso && Input.GetMouseButtonDown(1))
+            else if(farejaDur >= uso && Input.GetMouseButtonDown(1) && DogRaycast.fucinhoDog)
             {
                 EstadosPlayer.estadoHabilidade = "cheirando";
             }

@@ -4,52 +4,66 @@ using UnityEngine;
 
 public class DogRaycast : MonoBehaviour
 {
+    //condição de distância para verificar se ele está perto o suficiente para interagir
+    public static int distDogObj; 
+    //variaveis para avisar os scripts de quando pode mmorder ou cheirar
+    public static bool bocaDog, fucinhoDog; 
+    public static GameObject objSendoObservado;
+
     float distanceObjRay;
 
     //modificar a gosto
     [SerializeField]
     string ModificarAGosto = "//";
-    public float raycastDistance; //tamanho do raycast que o jogador vai fazer
+    public float raycastDistance; //tamanho do raycast
     public Camera mainCamera;
-    public float diamRay, distMedio, distLonge;
+    public float diamRay, distLonge;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        int x = Screen.width / 2;
-        int y = Screen.height / 2;
-
-        Ray ray = mainCamera.ScreenPointToRay(new Vector3(x, y)); //pega as coordenadas do mouse na tela e converte para o world space,
+        //pega as coordenadas do mouse na tela e converte para o world space,
         //saindo da câmera e chegando ao primeiro ponto de impacto
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); 
+
         RaycastHit whatIHit;
 
+        if (Physics.Raycast(ray, out whatIHit, raycastDistance)) { 
 
-        //if (Physics.SphereCast(ray, diamRay, out whatIHit, raycastDistance)) {
-        if (Physics.Raycast(ray, out whatIHit, raycastDistance))
-            {
+            distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
 
-                distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
+            //armazena o gameobject q está com o mouse em cima para passar essa informação
+            //pros outros scripts de morder e cheirar
+            objSendoObservado = whatIHit.transform.gameObject;
 
+            //ifs para calcular a distãncia e 
+            //fazer verificação do que o jogador pode fazer ou n
             if (distanceObjRay >= distLonge ) {
-                Debug.Log("maior que 10");
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.green);
+                distDogObj = 1;
             }
-            else if (distanceObjRay >= distMedio){
-                Debug.Log("menor que 10 e maior que 4");
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.yellow);
-            }
-            else if (distanceObjRay < distMedio){
-                Debug.Log("menor que 4");
-                Debug.DrawRay(this.transform.position, this.transform.forward * raycastDistance, Color.red);
+
+            //o farejar e morder só vão acontecer qnd
+            //estiver abaixo da distância longe
+            else if (distanceObjRay < distLonge){ 
+
+                distDogObj = 0;
+
+                if (whatIHit.transform.CompareTag("Farejar"))
+                {
+                    fucinhoDog = true;
+                    bocaDog = false;
+                }
+                else if (whatIHit.transform.CompareTag("Morder"))
+                {
+                    bocaDog = true;
+                    fucinhoDog = false;
+                }
+                else if (whatIHit.transform.CompareTag("Cenário") || whatIHit.transform.CompareTag (""))
+                {
+                    bocaDog = false;
+                    fucinhoDog = false;
+                }
+
             }
 
         }
