@@ -39,24 +39,35 @@ public class PlayerMovement : MonoBehaviour
             if(Input.GetAxis("Run") > 0)
                 controller.Move(move * runSpeed * Time.deltaTime);
 
-            /*if(inputX != 0 || inputZ != 0)
+
+            if(inputX != 0 || inputZ != 0)
             {
-            if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
-            {
-                somPasso1.SetActive(true);
-                somPasso2.SetActive(false);
+                if(Input.GetAxis("Run") > 0)
+                {
+                    EstadosPlayer.estadoMovimentacao = "correndo";
+                }
+                else
+                {
+                    EstadosPlayer.estadoMovimentacao = "andando";
+                }
+
+                /*if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
+                {
+                    somPasso1.SetActive(true);
+                    somPasso2.SetActive(false);
+                }
+                if(!somPasso2.activeInHierarchy && SomPassos.colideTapete)
+                {
+                    somPasso1.SetActive(false);
+                    somPasso2.SetActive(true);
+                }*/
             }
-            if(!somPasso2.activeInHierarchy && SomPassos.colideTapete)
+            else
             {
-                somPasso1.SetActive(false);
-                somPasso2.SetActive(true);
+                EstadosPlayer.estadoMovimentacao = "idle";
+                //somPasso1.SetActive(false);
+                //somPasso2.SetActive(false);
             }
-        }
-        else
-        {
-            somPasso1.SetActive(false);
-            somPasso2.SetActive(false);
-        }*/
         }
     }
 
