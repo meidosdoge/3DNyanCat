@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DogRaycast : MonoBehaviour
 {
-    public static int distDogObj; //condições de distãncia, se ele quer cheirar ou morder
-    public static bool bocaDog, fucinhoDog;
+    //condição de distância para verificar se ele está perto o suficiente para interagir
+    public static int distDogObj; 
+    //variaveis para avisar os scripts de quando pode mmorder ou cheirar
+    public static bool bocaDog, fucinhoDog; 
     public static GameObject objSendoObservado;
 
     float distanceObjRay;
@@ -15,13 +17,14 @@ public class DogRaycast : MonoBehaviour
     string ModificarAGosto = "//";
     public float raycastDistance; //tamanho do raycast
     public Camera mainCamera;
-    public float diamRay, distMedio, distLonge;
+    public float diamRay, distLonge;
 
-    // Update is called once per frame
+
     void Update()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); //pega as coordenadas do mouse na tela e converte para o world space,
+        //pega as coordenadas do mouse na tela e converte para o world space,
         //saindo da câmera e chegando ao primeiro ponto de impacto
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); 
 
         RaycastHit whatIHit;
 
@@ -29,18 +32,19 @@ public class DogRaycast : MonoBehaviour
 
             distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
 
-            objSendoObservado = whatIHit.transform.gameObject;//armazena o gameobject q está com o mouse em cima para passar essa informação
+            //armazena o gameobject q está com o mouse em cima para passar essa informação
             //pros outros scripts de morder e cheirar
+            objSendoObservado = whatIHit.transform.gameObject;
 
+            //ifs para calcular a distãncia e 
+            //fazer verificação do que o jogador pode fazer ou n
             if (distanceObjRay >= distLonge ) {
-                distDogObj = 2;
-            }
-
-            else if (distanceObjRay >= distMedio){
                 distDogObj = 1;
             }
 
-            else if (distanceObjRay < distMedio){
+            //o farejar e morder só vão acontecer qnd
+            //estiver abaixo da distância longe
+            else if (distanceObjRay < distLonge){ 
 
                 distDogObj = 0;
 

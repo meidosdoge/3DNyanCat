@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class Mira : MonoBehaviour
 {
+    //pega as propriedades de imagem do objeto para poder modificar a sprite
     public Image spriteMira;
 
-    //modificar a gosto
+    //imagens dos cursores que serão usados. Por enquanto são só três
     public Sprite cursorNormal, cursorMorder, cursorCheirar;
 
     private void Start()
@@ -17,24 +18,24 @@ public class Mira : MonoBehaviour
 
     private void Update()
     {
+        //faz a imagem seguir o mouse na tela
         Vector2 posCursor = Input.mousePosition;
         transform.position = posCursor;
 
-        if (DogRaycast.distDogObj == 2)
-        {
-            //imagem cursor longa distância
-            spriteMira.sprite = cursorNormal;
-        }
+        //verifica em qual situação o jogador está e muda o cursor de acordo,
+        //utilizando as variáveis que vem do raycast
         else if (DogRaycast.distDogObj == 1)
         {
-            //imagem cursor media distanica
+            //imagem cursor longa distancia
             spriteMira.sprite = cursorNormal;
         }
+
         else if (DogRaycast.fucinhoDog)
         {
             //imagem de quando pode cheirar
             spriteMira.sprite = cursorCheirar;
         }
+
         else if (DogRaycast.bocaDog)
         {
             //imagem de quando pode morder
