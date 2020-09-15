@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Farejar : MonoBehaviour
 {
@@ -11,8 +12,14 @@ public class Farejar : MonoBehaviour
     public float uso = 5f; //gasto por cheiro
     public float regenera = 0.5f; //tempo de regeneração da barra
 
+    //variáveis da barra de vida
+    public Slider barrinha;
+
+
     void Update()
     {
+        AtualizaBarra();
+
         if(!CanvasManager.jogoPausado)
         {
             //liga e desliga o cheirar
@@ -20,7 +27,7 @@ public class Farejar : MonoBehaviour
             {
                 EstadosPlayer.estadoHabilidade = "inativo";
             }
-            else if(farejaDur >= uso && Input.GetMouseButtonDown(1))
+            else if(farejaDur >= uso && Input.GetMouseButtonDown(1) && DogRaycast.fucinhoDog)
             {
                 EstadosPlayer.estadoHabilidade = "cheirando";
             }
@@ -36,5 +43,10 @@ public class Farejar : MonoBehaviour
                 farejaDur += Time.deltaTime * regenera;
             }
         }
+    }
+
+    void AtualizaBarra()
+    {
+        barrinha.value = farejaDur;
     }
 }

@@ -14,6 +14,6 @@ public class EstadosPlayer : MonoBehaviour
     void Update()
     {
         //print("estadoMovimentacao " + estadoMovimentacao);
-        print("estadoHabilidade " + estadoHabilidade);
+        //print("estadoHabilidade " + estadoHabilidade);
     }
 }

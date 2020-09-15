@@ -8,10 +8,7 @@ public class Mira : MonoBehaviour
     public Image spriteMira;
 
     //modificar a gosto
-    public string orientacaoDasSprites = "/Quanto menor o valor dentro da lista, ";
-    public string orientacaoDasSprites2 = " menor a distância até o objeto/";
-
-    public List<Sprite> spritesMouse = new List<Sprite>();
+    public Sprite cursorNormal, cursorMorder, cursorCheirar;
 
     private void Start()
     {
@@ -23,6 +20,26 @@ public class Mira : MonoBehaviour
         Vector2 posCursor = Input.mousePosition;
         transform.position = posCursor;
 
-        spriteMira.sprite = spritesMouse[DogRaycast.distDogObj];
+        if (DogRaycast.distDogObj == 2)
+        {
+            //imagem cursor longa distância
+            spriteMira.sprite = cursorNormal;
+        }
+        else if (DogRaycast.distDogObj == 1)
+        {
+            //imagem cursor media distanica
+            spriteMira.sprite = cursorNormal;
+        }
+        else if (DogRaycast.fucinhoDog)
+        {
+            //imagem de quando pode cheirar
+            spriteMira.sprite = cursorCheirar;
+        }
+        else if (DogRaycast.bocaDog)
+        {
+            //imagem de quando pode morder
+            spriteMira.sprite = cursorMorder;
+        }
+
     }
 }
