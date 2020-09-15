@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class Mira : MonoBehaviour
 {
-    Image spriteMira;
+    public Image spriteMira;
 
     //modificar a gosto
     public string orientacaoDasSprites = "/Quanto menor o valor dentro da lista, ";
     public string orientacaoDasSprites2 = " menor a distância até o objeto/";
+
     public List<Sprite> spritesMouse = new List<Sprite>();
 
     private void Start()
     {
-        spriteMira.sprite = spritesMouse[2];
         spriteMira = GetComponent<Image>();
     }
 
