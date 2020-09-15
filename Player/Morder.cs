@@ -12,13 +12,13 @@ public class Morder : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(DogRaycast.bocaDog);
-
+        //Debug.Log(DogRaycast.bocaDog);
 
         if(!CanvasManager.jogoPausado)
         {
             //solta o item
-            if(carregandoItem && Input.GetMouseButtonDown(0))
+            if(carregandoItem && Input.GetMouseButtonDown(0)
+            || EstadosPlayer.estadoHabilidade == "mordendo" && Input.GetMouseButtonDown(0))
             {
                 EstadosPlayer.estadoHabilidade = "inativo";
                 carregandoItem = false;
@@ -35,7 +35,6 @@ public class Morder : MonoBehaviour
                 carregandoItem = true;
                 PegaItem();
             }
-
         }
     }
 
