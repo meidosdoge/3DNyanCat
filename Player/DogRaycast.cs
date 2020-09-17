@@ -9,6 +9,8 @@ public class DogRaycast : MonoBehaviour
     //variaveis para avisar os scripts de quando pode mmorder ou cheirar
     public static bool bocaDog, fucinhoDog; 
     public static GameObject objSendoObservado;
+    //layer do player pro raycast ignorar
+    public LayerMask ignoraRaycast;
 
     float distanceObjRay;
 
@@ -28,7 +30,7 @@ public class DogRaycast : MonoBehaviour
 
         RaycastHit whatIHit;
 
-        if (Physics.Raycast(ray, out whatIHit, raycastDistance)) { 
+        if (Physics.Raycast(ray, out whatIHit, raycastDistance, ~ignoraRaycast)) { 
 
             distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
 
