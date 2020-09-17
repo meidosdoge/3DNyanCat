@@ -16,7 +16,7 @@ public class Farejar : MonoBehaviour
     public GameObject ppPretoBranco;
 
     //tempo em camera lenta do TimeScale
-    public float cameraLenta = 0.6f;
+    public float cameraLenta = 0.4f;
 
     void Update()
     {
@@ -25,8 +25,7 @@ public class Farejar : MonoBehaviour
         if(!CanvasManager.jogoPausado)
         {
             //liga e desliga o cheirar
-            if(farejaDur < uso || EstadosPlayer.estadoHabilidade == "cheirando" && Input.GetMouseButtonDown(1)
-            || Input.GetKeyDown(KeyCode.Escape))
+            if(farejaDur < uso || EstadosPlayer.estadoHabilidade == "cheirando" && Input.GetMouseButtonDown(1))
             {
                 EstadosPlayer.estadoHabilidade = "inativo";
             }
@@ -58,12 +57,12 @@ public class Farejar : MonoBehaviour
     void VisaoOn()
     {
         ppPretoBranco.SetActive(true);
-        Time.TimeScale = cameraLenta;
+        Time.timeScale = cameraLenta;
     }
 
     void VisaoOff()
     {
         ppPretoBranco.SetActive(false);
-        Time.TimeScale = 1;
+        Time.timeScale = 1;
     }
 }
