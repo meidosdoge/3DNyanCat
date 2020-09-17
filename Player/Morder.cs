@@ -5,10 +5,13 @@ using UnityEngine;
 public class Morder : MonoBehaviour
 {
     bool carregandoItem = false; //o dog tá com um item
-    //fazer: dog pega o item se essa variável é true, solta o item se false
 
+    //lugar em que o objeto vai ficar na boca
     public GameObject jointBoca;
+    //pega as propriedades do objeto que está na boca do dog
     public GameObject objetoNaBoca;
+
+    public float forcaDeSoltar = 10;
 
     void Update()
     {
@@ -51,5 +54,6 @@ public class Morder : MonoBehaviour
     {
         objetoNaBoca.transform.parent = null;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
+        objetoNaBoca.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * forcaDeSoltar);
     }
 }
