@@ -25,8 +25,8 @@ public class Highlight : MonoBehaviour
 
     void Update()
     {
-        //if(ExamineObjectNew.exObNew.isCarryingObj)
-        //    ligaHighlight = false;
+        if(EstadosPlayer.estadoHabilidade == "mordendo")
+            ligaHighlight = false;
 
         if(!ligaHighlight)
         {
