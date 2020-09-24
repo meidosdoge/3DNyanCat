@@ -5,26 +5,10 @@ using UnityEngine;
 public class ControlaParticula : MonoBehaviour
 {
     /*
-    comentário da mei pra mei, releva e ignora
-
-    tirar esse negócio do público, usar child gameobj
-    trigger collider em volta da partícula
-    
-    void onParticleTrigger()
-    {
-        pegar ex da documentação
-        variável global de gerando partícula 3a = true
-        if ^ true, não gera outra partícula pra evitar de gerar nos dois scripts?
-
-        MixParticles();
-    }
+    comentar esse script direito
 
     void MixParticles()
     {
-        gera partícula a partir do prefab
-        no meio das duas no lugar onde colidiu
-        fica bonito isso aí?
-
         mudar a sprite atual? maybe nicer
         testar com o negócio feio que eu fiz
         se funcionar, fazer uma sheet bonita
@@ -58,22 +42,68 @@ public class ControlaParticula : MonoBehaviour
         if(Estadosplayer bla cheirando && pode ligar)
             liga o filho meo parça
     }
+
+    fazer o morder e cheirar as well pra ficar melhor, mas depois
     */
 
-    public GameObject testParticle;
-    public int rowNumber = 0;
-    private ParticleSystem parSys;
+    private GameObject particle; //objeto com o emitter
+    private ParticleSystem parSys; //referência pro particle system
+    
+    public GameObject partPool; //partícula na cena que vai modificar
+    private ParticleSystem partPoolSys; //referência pro particle system do pool
+    
+    private int rowNumber; //onde vai pegar imagem na sprite sheet
+    private Vector3 collidePosition; //guarda a posição de onde colidiu
+
 
     void Start()
     {
-        parSys = testParticle.GetComponent<ParticleSystem>();
-    }
+        particle = transform.GetChild(0).gameObject; //pega a partícula dentro do obj
+        parSys = particle.GetComponent<ParticleSystem>(); //referência do particlesystem
 
+        partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
+        partPoolSys = partPool.GetComponent<ParticleSystem>();
+    }
     void Update()
     {
-        var texAnim = parSys.textureSheetAnimation;
-        texAnim.rowIndex = rowNumber;
+        var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
+        //texAnim.rowIndex = rowNumber; //escolhe qual linha da animação vai usar
 
-        //var partColor = parSys.
+        MixParticles();
+    }
+
+    
+    //cria partículas bonitas no lugar da colisão
+    void MixParticles()
+    {
+        if(EstadosPlayer.gerandoParticula)
+        {
+            partPool.SetActive(true);
+
+            if(collidePosition.x != 0 || collidePosition.z != 0) //move a partícula pro lugar da col
+                partPool.transform.position = new Vector3 (collidePosition.x, collidePosition.y * 2, collidePosition.z);
+        }
+        else
+        {
+            partPool.SetActive(false);
+        }
+    }
+
+
+    //liga e desliga o gerador de partícula com a colisão
+    void OnTriggerEnter(Collider other) 
+    {
+        if(!EstadosPlayer.gerandoParticula)
+        {
+            EstadosPlayer.gerandoParticula = true;
+            collidePosition = particle.transform.position;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(EstadosPlayer.gerandoParticula)
+        {
+            EstadosPlayer.gerandoParticula = false;
+        }
     }
 }

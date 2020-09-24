@@ -6,14 +6,19 @@ public class EstadosPlayer : MonoBehaviour
 {
     public static string estadoMovimentacao = "idle";
     public static string estadoHabilidade = "inativo";
-    
+
     //possibilidades de estado
     //movimentação: idle, andando, correndo
     //ação da cara: inativo, cheirando, mordendo
+
+
+    public static bool gerandoParticula = false;
+    //ativa quando duas partículas estão colidindo
 
     void Update()
     {
         //print("estadoMovimentacao " + estadoMovimentacao);
         //print("estadoHabilidade " + estadoHabilidade);
+        //print(gerandoParticula);
     }
 }
