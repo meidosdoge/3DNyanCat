@@ -25,7 +25,6 @@ public class Morder : MonoBehaviour
             {
                 EstadosPlayer.estadoHabilidade = "inativo";
                 carregandoItem = false;
-                DogRaycast.bocaDog = false;
                 SoltaItem();
             }
 

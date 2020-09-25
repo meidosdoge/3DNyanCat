@@ -44,7 +44,6 @@ public class Farejar : MonoBehaviour
             else if(farejaDur < 100)
             {
                 farejaDur += Time.deltaTime * regenera;
-                DogRaycast.fucinhoDog = false;
                 VisaoOff();
             }
         }
