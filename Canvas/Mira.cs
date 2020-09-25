@@ -18,9 +18,29 @@ public class Mira : MonoBehaviour
 
     private void Update()
     {
-        //faz a imagem seguir o mouse na tela
-        Vector2 posCursor = Input.mousePosition;
-        transform.position = posCursor;
+        //define os estados do cursor dependendo de qual camera está ativa
+        if (MudarCameras.camNoPlayer)
+        {
+            //coloca a imagem do canvas de volta no centro da tela
+            GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (!MudarCameras.camNoPlayer)
+        {
+            //faz a imagem do cursor seguir o mouse
+            Vector2 posCursor = Input.mousePosition;
+            transform.position = posCursor;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        //caso pause o jogo, ele ja faz a verificação por aq pra n conflitar
+        if (CanvasManager.jogoPausado)
+        {
+            Vector2 posCursor = Input.mousePosition;
+            transform.position = posCursor;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
 
         //verifica em qual situação o jogador está e muda o cursor de acordo,
         //utilizando as variáveis que vem do raycast
