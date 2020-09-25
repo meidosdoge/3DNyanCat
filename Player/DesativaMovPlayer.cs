@@ -30,7 +30,7 @@ public class DesativaMovPlayer : MonoBehaviour
 
         else
         {
-            //DesativaCursor();
+            DesativaCursor();
             AtivaMov();
         }
     }
@@ -57,9 +57,9 @@ public class DesativaMovPlayer : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    /*public void DesativaCursor()
+    public void DesativaCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }*/
+    }
 }
