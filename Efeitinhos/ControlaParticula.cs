@@ -7,28 +7,17 @@ public class ControlaParticula : MonoBehaviour
     /*
     comentar esse script direito
 
+    public Sprite [] mixSpriteArray; //seleção do array da partícula
+    em outro script 
+    pegar o número de um e outro e escolher a sheet pelo nome PartSheet_1oApto_i_j
+
     void MixParticles()
     {
-        mudar a sprite atual? maybe nicer
-        testar com o negócio feio que eu fiz
-        se funcionar, fazer uma sheet bonita
-        preta com a forma em branco
-        pegar o número de um e outro e escolher a sheet pelo nome faseX_particula_i_j
-        ou seja lá qual o padrão de renomear do unity
-        fazer um material com essa bonita pra usar
+        
 
         quando criar a partícula, mudar a cor dela
         cor é a mistura de a e b, ver aquele bagulho da soma
         a v1 pode não ter cor, tudo bem
-    }
-
-        else if sprite not work
-        {
-            pega o número da row atual
-            usa dentro de um array com os quatro cheiros do ambiente
-            de acordo com qual a forma inicial, gera partícula com material da sheet de combinação
-            sheets de combinação de cada forma, lugar com 4 cheiros tem 4 materiais (inicial, comb linha1, ...)
-        }
     
     void ativaParticle()
     {
@@ -55,6 +44,9 @@ public class ControlaParticula : MonoBehaviour
     private int rowNumber; //onde vai pegar imagem na sprite sheet
     private Vector3 collidePosition; //guarda a posição de onde colidiu
 
+    private Sprite currentSprite; //pega a sprite da partícula original
+    public Sprite mixSprite; //sprite pra partícula misturada
+    private bool addedSprite = false; //checa se já trocou a partícula
 
     void Start()
     {
@@ -62,13 +54,10 @@ public class ControlaParticula : MonoBehaviour
         parSys = particle.GetComponent<ParticleSystem>(); //referência do particlesystem
 
         partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
-        partPoolSys = partPool.GetComponent<ParticleSystem>();
+        partPoolSys = partPool.GetComponent<ParticleSystem>();        
     }
     void Update()
     {
-        var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
-        //texAnim.rowIndex = rowNumber; //escolhe qual linha da animação vai usar
-
         MixParticles();
     }
 
@@ -76,16 +65,31 @@ public class ControlaParticula : MonoBehaviour
     //cria partículas bonitas no lugar da colisão
     void MixParticles()
     {
+        var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
+        var mixTexAnim = partPoolSys.textureSheetAnimation; //referência da animação por sheet da mistura
+
+        currentSprite = texAnim.GetSprite(0); //sprite atual da partícula
+
+
         if(EstadosPlayer.gerandoParticula)
         {
-            partPool.SetActive(true);
+            partPool.SetActive(true); //ativa a partícula mistura
 
-            if(collidePosition.x != 0 || collidePosition.z != 0) //move a partícula pro lugar da col
+            //move a partícula pro lugar da col
+            if(collidePosition.x != 0 || collidePosition.z != 0) 
                 partPool.transform.position = new Vector3 (collidePosition.x, collidePosition.y * 2, collidePosition.z);
+
+            //muda a sprite
+            if(!addedSprite)
+            {
+                mixTexAnim.SetSprite(0, mixSprite);
+                addedSprite = true;
+            }
         }
         else
         {
             partPool.SetActive(false);
+            addedSprite = false;
         }
     }
 
