@@ -7,14 +7,8 @@ public class ControlaParticula : MonoBehaviour
     /*
     comentar esse script direito
 
-    public Sprite [] mixSpriteArray; //seleção do array da partícula
-    em outro script 
-    pegar o número de um e outro e escolher a sheet pelo nome PartSheet_1oApto_i_j
-
     void MixParticles()
     {
-        
-
         quando criar a partícula, mudar a cor dela
         cor é a mistura de a e b, ver aquele bagulho da soma
         a v1 pode não ter cor, tudo bem
@@ -41,11 +35,8 @@ public class ControlaParticula : MonoBehaviour
     public GameObject partPool; //partícula na cena que vai modificar
     private ParticleSystem partPoolSys; //referência pro particle system do pool
     
-    private int rowNumber; //onde vai pegar imagem na sprite sheet
     private Vector3 collidePosition; //guarda a posição de onde colidiu
 
-    private Sprite currentSprite; //pega a sprite da partícula original
-    public Sprite mixSprite; //sprite pra partícula misturada
     private bool addedSprite = false; //checa se já trocou a partícula
 
     void Start()
@@ -68,11 +59,9 @@ public class ControlaParticula : MonoBehaviour
         var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
         var mixTexAnim = partPoolSys.textureSheetAnimation; //referência da animação por sheet da mistura
 
-        currentSprite = texAnim.GetSprite(0); //sprite atual da partícula
-
 
         if(EstadosPlayer.gerandoParticula)
-        {
+        {  
             partPool.SetActive(true); //ativa a partícula mistura
 
             //move a partícula pro lugar da col
@@ -82,7 +71,7 @@ public class ControlaParticula : MonoBehaviour
             //muda a sprite
             if(!addedSprite)
             {
-                mixTexAnim.SetSprite(0, mixSprite);
+                mixTexAnim.SetSprite(0, ParticleArray.partArray.chosenSprite); //usa a sprite escolhida no script particle array
                 addedSprite = true;
             }
         }
@@ -90,6 +79,7 @@ public class ControlaParticula : MonoBehaviour
         {
             partPool.SetActive(false);
             addedSprite = false;
+            ParticleArray.partArray.settouSprite = false;
         }
     }
 
@@ -97,17 +87,27 @@ public class ControlaParticula : MonoBehaviour
     //liga e desliga o gerador de partícula com a colisão
     void OnTriggerEnter(Collider other) 
     {
+        var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
+        
         if(!EstadosPlayer.gerandoParticula)
         {
-            EstadosPlayer.gerandoParticula = true;
-            collidePosition = particle.transform.position;
+            if(!ParticleArray.settou1)
+            {
+                ParticleArray.partArray.currentNum1 = texAnim.GetSprite(0).name;
+                ParticleArray.settou1 = true;
+            }
+            else
+            {
+                ParticleArray.partArray.currentNum2 = texAnim.GetSprite(0).name;
+                
+                EstadosPlayer.gerandoParticula = true;
+                collidePosition = particle.transform.position;
+            }  
         }
     }
     void OnTriggerExit(Collider other)
     {
-        if(EstadosPlayer.gerandoParticula)
-        {
-            EstadosPlayer.gerandoParticula = false;
-        }
+        EstadosPlayer.gerandoParticula = false;
+        ParticleArray.settou1 = false;
     }
 }
