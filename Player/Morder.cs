@@ -27,13 +27,13 @@ public class Morder : MonoBehaviour
                 carregandoItem = false;
                 SoltaItem();
             }
-
-
             else if(!carregandoItem 
                 && Input.GetMouseButtonDown(0) 
                 && DogRaycast.bocaDog 
-                && DogRaycast.objSendoObservado.transform.gameObject.CompareTag ("Morder")) //morde o item. Tem que ser nessa ordem os ifs, primeiro o solta e depois o morde
+                && (DogRaycast.objSendoObservado.transform.gameObject.CompareTag ("Morder") 
+                ||DogRaycast.objSendoObservado.transform.gameObject.CompareTag ("FarejarEMorder")))
             {
+                //morde o item. Tem que ser nessa ordem os ifs, primeiro o solta e depois o morde
                 EstadosPlayer.estadoHabilidade = "mordendo";
                 carregandoItem = true;
                 PegaItem();
