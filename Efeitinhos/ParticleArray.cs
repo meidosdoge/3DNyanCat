@@ -34,7 +34,7 @@ public class ParticleArray : MonoBehaviour
         //escolhe sprite baseado no nome das duas que colidiram
         for(int i = 0; i < mixSpriteArray.Length; i++)
         {
-            if(mixSpriteArray[i].name.Contains(currentNum1) && mixSpriteArray[i].name.Contains(currentNum2))
+            if(mixSpriteArray[i].name.Contains(currentNum1 + "_" + currentNum2))
             {
                 chosenSprite = mixSpriteArray[i];
             }

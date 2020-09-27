@@ -4,31 +4,6 @@ using UnityEngine;
 
 public class ControlaParticula : MonoBehaviour
 {
-    /*
-    comentar esse script direito
-
-    void MixParticles()
-    {
-        quando criar a partícula, mudar a cor dela
-        cor é a mistura de a e b, ver aquele bagulho da soma
-        a v1 pode não ter cor, tudo bem
-    
-    void ativaParticle()
-    {
-        criar uma pode ligar
-        pegar do raycast qual o objeto que eu cliquei
-        mandar mensagem do próprio raycast talvez seja mais fácil
-        chamar esse método lá, objQueEuCliquei.ControlaParticula.ativaParticle()
-        if obj interagido = this/chegou aqui, pode ligar = true
-        esse true NÃO FICA FALSE NUNCAAAA
-
-        if(Estadosplayer bla cheirando && pode ligar)
-            liga o filho meo parça
-    }
-
-    fazer o morder e cheirar as well pra ficar melhor, mas depois
-    */
-
     private GameObject particle; //objeto com o emitter
     private ParticleSystem parSys; //referência pro particle system
     
@@ -77,8 +52,9 @@ public class ControlaParticula : MonoBehaviour
         }
         else
         {
-            partPool.SetActive(false);
-            addedSprite = false;
+            collidePosition = Vector3.zero; //AMÉM ANDRÉ :goodjob:
+            partPool.SetActive(false);  //desativa a partícula de mistura na cena
+            addedSprite = false; //limpa a sprite 
             ParticleArray.partArray.settouSprite = false;
         }
     }
@@ -91,15 +67,18 @@ public class ControlaParticula : MonoBehaviour
         
         if(!EstadosPlayer.gerandoParticula)
         {
-            if(!ParticleArray.settou1)
+            if(!ParticleArray.settou1) 
             {
+                //pega o número da primeira partícula
                 ParticleArray.partArray.currentNum1 = texAnim.GetSprite(0).name;
                 ParticleArray.settou1 = true;
             }
             else
             {
+                //pega o número da segunda partícula
                 ParticleArray.partArray.currentNum2 = texAnim.GetSprite(0).name;
-                
+
+                //liga o gerador de partícula e pega a posição da colisão
                 EstadosPlayer.gerandoParticula = true;
                 collidePosition = particle.transform.position;
             }  
