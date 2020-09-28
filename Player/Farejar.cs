@@ -32,6 +32,7 @@ public class Farejar : MonoBehaviour
             else if(farejaDur >= uso && Input.GetMouseButtonDown(1) && DogRaycast.fucinhoDog)
             {
                 EstadosPlayer.estadoHabilidade = "cheirando";
+                DogRaycast.objSendoObservado.GetComponent<ControlaParticula>().podeAtivarPart = true;
             }
 
             

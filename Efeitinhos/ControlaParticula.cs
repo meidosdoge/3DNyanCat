@@ -16,17 +16,47 @@ public class ControlaParticula : MonoBehaviour
 
     public Color color1, color2; //cores das partículas originais
 
+    public bool podeAtivarPart; //checa se já cheirou o obj pra poder ligar partícula 
+
     void Start()
     {
         particle = transform.GetChild(0).gameObject; //pega a partícula dentro do obj
         parSys = particle.GetComponent<ParticleSystem>(); //referência do particlesystem
 
         partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
-        partPoolSys = partPool.GetComponent<ParticleSystem>();        
+        partPoolSys = partPool.GetComponent<ParticleSystem>();
+
+        particle.SetActive(false);        
     }
     void Update()
     {
-        MixParticles();
+        AtivaParticles();
+    }
+
+
+    void AtivaParticles()
+    {
+        //vê se tá cheirando e se já interagiu com a partícula
+        //se sim, liga a partícula e faz o mix; se não, desliga
+
+        if(podeAtivarPart && EstadosPlayer.estadoHabilidade == "cheirando")
+        {
+            particle.SetActive(true);
+            MixParticles();
+        }
+        else if (!podeAtivarPart)
+        {
+            particle.SetActive(false);
+        }
+        else if (EstadosPlayer.estadoHabilidade != "cheirando")
+        {
+            //desliga as todas as partículas e desfaz o mix
+            particle.SetActive(false);
+            partPool.SetActive(false);
+
+            EstadosPlayer.gerandoParticula = false;
+            ParticleArray.settou1 = false;
+        }
     }
 
     
