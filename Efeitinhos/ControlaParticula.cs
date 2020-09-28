@@ -14,17 +14,49 @@ public class ControlaParticula : MonoBehaviour
 
     private bool addedSprite = false; //checa se já trocou a partícula
 
+    public Color color1, color2; //cores das partículas originais
+
+    public bool podeAtivarPart; //checa se já cheirou o obj pra poder ligar partícula 
+
     void Start()
     {
         particle = transform.GetChild(0).gameObject; //pega a partícula dentro do obj
         parSys = particle.GetComponent<ParticleSystem>(); //referência do particlesystem
 
         partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
-        partPoolSys = partPool.GetComponent<ParticleSystem>();        
+        partPoolSys = partPool.GetComponent<ParticleSystem>();
+
+        particle.SetActive(false);        
     }
     void Update()
     {
-        MixParticles();
+        AtivaParticles();
+    }
+
+
+    void AtivaParticles()
+    {
+        //vê se tá cheirando e se já interagiu com a partícula
+        //se sim, liga a partícula e faz o mix; se não, desliga
+
+        if(podeAtivarPart && EstadosPlayer.estadoHabilidade == "cheirando")
+        {
+            particle.SetActive(true);
+            MixParticles();
+        }
+        else if (!podeAtivarPart)
+        {
+            particle.SetActive(false);
+        }
+        else if (EstadosPlayer.estadoHabilidade != "cheirando")
+        {
+            //desliga as todas as partículas e desfaz o mix
+            particle.SetActive(false);
+            partPool.SetActive(false);
+
+            EstadosPlayer.gerandoParticula = false;
+            ParticleArray.settou1 = false;
+        }
     }
 
     
@@ -51,7 +83,10 @@ public class ControlaParticula : MonoBehaviour
             }
         }
         else
-        {
+        {   
+            color1 = Color.white;
+            color2 = Color.white;
+
             collidePosition = Vector3.zero; //AMÉM ANDRÉ :goodjob:
             partPool.SetActive(false);  //desativa a partícula de mistura na cena
             addedSprite = false; //limpa a sprite 
@@ -59,11 +94,33 @@ public class ControlaParticula : MonoBehaviour
         }
     }
 
+    void MixColor()
+    {
+        //pega as duas cores de partículas e soma os valores r g b 
+        float newR = (color1.r + color2.r) / 2;
+        float newG = (color1.g + color2.g) / 2;
+        float newB = (color1.b + color2.b) / 2;
+
+        //referência da partícula misturada
+        var mainPool = partPoolSys.main;
+
+        //se a cor escolhida não for branco, atribui pra partícula de mistura
+        if(newR != 0 || newG != 0 || newB != 0)
+            mainPool.startColor = new Color(newR, newG, newB, 1f);
+    }
+
 
     //liga e desliga o gerador de partícula com a colisão
     void OnTriggerEnter(Collider other) 
     {
         var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
+        var mainParticle = parSys.main; //referência de cores das partículas
+        var mainParticle2 = other.gameObject.GetComponent<ParticleSystem>().main;
+
+        //pega cor das duas partículas
+        color1 = mainParticle.startColor.color;
+        color2 = mainParticle2.startColor.color;
+        MixColor();
         
         if(!EstadosPlayer.gerandoParticula)
         {
@@ -77,7 +134,7 @@ public class ControlaParticula : MonoBehaviour
             {
                 //pega o número da segunda partícula
                 ParticleArray.partArray.currentNum2 = texAnim.GetSprite(0).name;
-
+                
                 //liga o gerador de partícula e pega a posição da colisão
                 EstadosPlayer.gerandoParticula = true;
                 collidePosition = particle.transform.position;
