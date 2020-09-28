@@ -9,12 +9,14 @@ public class HighlightRay : MonoBehaviour
 
     public GameObject litObj;
 
+    public LayerMask ignoraPlayer;
+
     void Update()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, raycastDist))
+        if(Physics.Raycast(ray, out hit, raycastDist, ~ignoraPlayer))
         {
             //print(hit.collider.gameObject);
             if(litObj != null && litObj != hit.collider.gameObject)
