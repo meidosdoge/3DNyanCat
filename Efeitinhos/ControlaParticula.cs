@@ -14,6 +14,8 @@ public class ControlaParticula : MonoBehaviour
 
     private bool addedSprite = false; //checa se já trocou a partícula
 
+    public Color color1, color2; //cores das partículas originais
+
     void Start()
     {
         particle = transform.GetChild(0).gameObject; //pega a partícula dentro do obj
@@ -51,7 +53,10 @@ public class ControlaParticula : MonoBehaviour
             }
         }
         else
-        {
+        {   
+            color1 = Color.white;
+            color2 = Color.white;
+
             collidePosition = Vector3.zero; //AMÉM ANDRÉ :goodjob:
             partPool.SetActive(false);  //desativa a partícula de mistura na cena
             addedSprite = false; //limpa a sprite 
@@ -59,11 +64,33 @@ public class ControlaParticula : MonoBehaviour
         }
     }
 
+    void MixColor()
+    {
+        //pega as duas cores de partículas e soma os valores r g b 
+        float newR = (color1.r + color2.r) / 2;
+        float newG = (color1.g + color2.g) / 2;
+        float newB = (color1.b + color2.b) / 2;
+
+        //referência da partícula misturada
+        var mainPool = partPoolSys.main;
+
+        //se a cor escolhida não for branco, atribui pra partícula de mistura
+        if(newR != 0 || newG != 0 || newB != 0)
+            mainPool.startColor = new Color(newR, newG, newB, 1f);
+    }
+
 
     //liga e desliga o gerador de partícula com a colisão
     void OnTriggerEnter(Collider other) 
     {
         var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
+        var mainParticle = parSys.main; //referência de cores das partículas
+        var mainParticle2 = other.gameObject.GetComponent<ParticleSystem>().main;
+
+        //pega cor das duas partículas
+        color1 = mainParticle.startColor.color;
+        color2 = mainParticle2.startColor.color;
+        MixColor();
         
         if(!EstadosPlayer.gerandoParticula)
         {
@@ -77,7 +104,7 @@ public class ControlaParticula : MonoBehaviour
             {
                 //pega o número da segunda partícula
                 ParticleArray.partArray.currentNum2 = texAnim.GetSprite(0).name;
-
+                
                 //liga o gerador de partícula e pega a posição da colisão
                 EstadosPlayer.gerandoParticula = true;
                 collidePosition = particle.transform.position;
