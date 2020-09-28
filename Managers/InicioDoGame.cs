@@ -8,6 +8,9 @@ public class InicioDoGame : MonoBehaviour
     public List<GameObject> objComecaInvisivel = new List<GameObject>();
     void Awake()
     {
+        Time.timeScale = 1;
+        CanvasManager.jogoPausado = false;
+
         foreach(GameObject obj in objComecaInvisivel)
         {
             obj.SetActive(false);
