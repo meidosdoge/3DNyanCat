@@ -18,6 +18,11 @@ public class Farejar : MonoBehaviour
     //tempo em camera lenta do TimeScale
     public float cameraLenta = 0.4f;
 
+    private void Start()
+    {
+        PegaEventoParaExecutar.desativaCheirarEMorder += VisaoOff;
+    }
+
     void Update()
     {
         AtualizaBarra();
@@ -27,11 +32,11 @@ public class Farejar : MonoBehaviour
             //liga e desliga o cheirar
             if(farejaDur < uso || EstadosPlayer.estadoHabilidade == "cheirando" && Input.GetMouseButtonDown(1))
             {
-                EstadosPlayer.estadoHabilidade = "inativo";
+                PegaEventoParaExecutar.desativaCheirarEMorder();
             }
             else if(farejaDur >= uso && Input.GetMouseButtonDown(1) && DogRaycast.fucinhoDog)
             {
-                EstadosPlayer.estadoHabilidade = "cheirando";
+                VisaoOn();
             }
 
             
@@ -39,12 +44,10 @@ public class Farejar : MonoBehaviour
             if(EstadosPlayer.estadoHabilidade == "cheirando")
             {
                 farejaDur -= Time.deltaTime * uso;
-                VisaoOn();
             }
             else if(farejaDur < 100)
             {
                 farejaDur += Time.deltaTime * regenera;
-                VisaoOff();
             }
         }
     }
@@ -58,11 +61,14 @@ public class Farejar : MonoBehaviour
     {
         ppPretoBranco.SetActive(true);
         Time.timeScale = cameraLenta;
+        EstadosPlayer.estadoHabilidade = "cheirando";
+        DogRaycast.objSendoObservado.GetComponent<ControlaParticula>().podeAtivarPart = true;
     }
 
-    void VisaoOff()
+    public void VisaoOff()
     {
         ppPretoBranco.SetActive(false);
         Time.timeScale = 1;
+        EstadosPlayer.estadoHabilidade = "inativo";
     }
 }

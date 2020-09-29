@@ -9,31 +9,65 @@ public class HighlightRay : MonoBehaviour
 
     public GameObject litObj;
 
+    public LayerMask ignoraPlayer;
+
+    //pega o dog para castar o Ray nele
+    public GameObject dog;
+
+
     void Update()
     {
+        
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        //armazena os objetos que estão proximos do dog na camera fixa
+        RaycastHit[] hitCamFixa = new RaycastHit[0];
 
-        if(Physics.Raycast(ray, out hit, raycastDist))
+        if (MudarCameras.camNoPlayer)
         {
-            //print(hit.collider.gameObject);
-            if(litObj != null && litObj != hit.collider.gameObject)
+            if (Physics.Raycast(ray, out hit, raycastDist, ~ignoraPlayer))
             {
-                litObj.GetComponent<Highlight>().desliga();
-            }
+                //print(hit.collider.gameObject);
+                if (litObj != null && litObj != hit.collider.gameObject)
+                {
+                    litObj.GetComponent<Highlight>().desliga();
+                }
 
-            if(hit.collider.gameObject.GetComponent<Highlight>() != null)
+                if (hit.collider.gameObject.GetComponent<Highlight>() != null)
+                {
+                    litObj = hit.collider.gameObject;
+                    hit.collider.gameObject.GetComponent<Highlight>().liga();
+                }
+            }
+            else
             {
-                litObj = hit.collider.gameObject;
-                hit.collider.gameObject.GetComponent<Highlight>().liga();
+                if (litObj != null)
+                {
+                    litObj.GetComponent<Highlight>().desliga();
+                }
             }
         }
-        else
+
+        else if (!MudarCameras.camNoPlayer)
         {
-            if(litObj != null)
+            //desliga o highlight dos objetos que estavam no array na frame anterior
+            for (int i = 0; i < hitCamFixa.Length; i++)
             {
-                litObj.GetComponent<Highlight>().desliga();
+                hit = hitCamFixa[i];
+                if (hit.collider.GetComponent<Highlight>() != null)
+                    hit.collider.gameObject.GetComponent<Highlight>().desliga();
+            }
+
+            //detecta os objetos envolta do jogador 9ou devia ne)
+            hitCamFixa = Physics.SphereCastAll(dog.transform.position, 30, dog.transform.position, 0.1f, ~ignoraPlayer);
+
+            for (int i = 0; i < hitCamFixa.Length; i++)
+            {
+                hit = hitCamFixa[i];
+                if (hit.collider.GetComponent<Highlight>() != null)
+                    hit.collider.gameObject.GetComponent<Highlight>().liga();
             }
         }
+
     }
 }

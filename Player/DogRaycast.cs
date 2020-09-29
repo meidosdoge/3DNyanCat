@@ -6,11 +6,13 @@ public class DogRaycast : MonoBehaviour
 {
     //condição de distância para verificar se ele está perto o suficiente para interagir
     public static int distDogObj; 
-    //variaveis para avisar os scripts de quando pode mmorder ou cheirar
+    //variaveis para avisar os scripts de quando pode morder ou cheirar
     public static bool bocaDog, fucinhoDog; 
     public static GameObject objSendoObservado;
     //layer do player pro raycast ignorar
     public LayerMask ignoraRaycast;
+    //pega o dog como referencia para distancia do raycast
+    public GameObject dog;
 
     float distanceObjRay;
 
@@ -32,7 +34,8 @@ public class DogRaycast : MonoBehaviour
 
         if (Physics.Raycast(ray, out whatIHit, raycastDistance, ~ignoraRaycast)) { 
 
-            distanceObjRay = Vector3.Distance(this.transform.position, whatIHit.point);
+            //eu troquei pra ser o dog o ponto de comparação, pra poder fazer o raycast da camera fixa depois
+            distanceObjRay = Vector3.Distance(dog.transform.position, whatIHit.point);
 
             //armazena o gameobject q está com o mouse em cima para passar essa informação
             //pros outros scripts de morder e cheirar
@@ -59,6 +62,11 @@ public class DogRaycast : MonoBehaviour
                 {
                     bocaDog = true;
                     fucinhoDog = false;
+                }
+                else if (whatIHit.transform.CompareTag("FarejarEMorder"))
+                {
+                    bocaDog = true;
+                    fucinhoDog = true;
                 }
                 else if (whatIHit.transform.CompareTag("EventosJogador"))
                 {
