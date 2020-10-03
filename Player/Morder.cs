@@ -13,6 +13,11 @@ public class Morder : MonoBehaviour
 
     public float forcaDeSoltar = 10;
 
+    private void Start()
+    {
+        PegaEventoParaExecutar.desativaCheirarEMorder += SoltaItem;
+    }
+
     void Update()
     {
         //Debug.Log(DogRaycast.bocaDog);
@@ -23,9 +28,7 @@ public class Morder : MonoBehaviour
             if(carregandoItem && Input.GetMouseButtonDown(0)
             || EstadosPlayer.estadoHabilidade == "mordendo" && Input.GetMouseButtonDown(0))
             {
-                EstadosPlayer.estadoHabilidade = "inativo";
-                carregandoItem = false;
-                SoltaItem();
+                PegaEventoParaExecutar.desativaCheirarEMorder();
             }
             else if(!carregandoItem 
                 && Input.GetMouseButtonDown(0) 
@@ -34,8 +37,6 @@ public class Morder : MonoBehaviour
                 ||DogRaycast.objSendoObservado.transform.gameObject.CompareTag ("FarejarEMorder")))
             {
                 //morde o item. Tem que ser nessa ordem os ifs, primeiro o solta e depois o morde
-                EstadosPlayer.estadoHabilidade = "mordendo";
-                carregandoItem = true;
                 PegaItem();
             }
         }
@@ -45,15 +46,24 @@ public class Morder : MonoBehaviour
     void PegaItem()
     {
         objetoNaBoca = DogRaycast.objSendoObservado;
+        EstadosPlayer.estadoHabilidade = "mordendo";
+        carregandoItem = true;        
         objetoNaBoca.transform.parent = jointBoca.transform;
         objetoNaBoca.transform.position = jointBoca.transform.position;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
+        objetoNaBoca.GetComponent<BoxCollider>().enabled = false;
+        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
-    void SoltaItem()
+    public void SoltaItem()
     {
+        EstadosPlayer.estadoHabilidade = "inativo";
+        carregandoItem = false;
         objetoNaBoca.transform.parent = null;
+        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
-        objetoNaBoca.GetComponent<Rigidbody>().AddForce(this.gameObject.transform.forward * forcaDeSoltar);
+        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        objetoNaBoca.GetComponent<BoxCollider>().enabled = true;
     }
 }
