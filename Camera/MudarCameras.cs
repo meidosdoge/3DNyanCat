@@ -7,9 +7,9 @@ public class MudarCameras : MonoBehaviour
     //pega camera atual para fazer a verificação se o player está na visão dela
     Camera camera;
     //referencias de objetos para realizar a transição das cameras e executar o que precisa
-    public GameObject player, cameraPlayer, cameraParticulas;
+    public GameObject player, cameraPlayer;  //cameraParticulas;  não entendi a necessidade dessa aqui
     //variavel que indica se está na camera fixa ou movel, para a mira conseguir funcionar de acordo
-    public static bool camNoPlayer = true;
+    public static bool camNoPlayer = false;
 
     private void Start()
     {
@@ -28,13 +28,13 @@ public class MudarCameras : MonoBehaviour
         {
             cameraPlayer.SetActive(false);
             camNoPlayer = false;
-            cameraParticulas.SetActive(true);
+            //cameraParticulas.SetActive(true);
         }
         else if (!onScreen)
         {
             cameraPlayer.SetActive(true);
             camNoPlayer = true;
-            cameraParticulas.SetActive(false);
+            //cameraParticulas.SetActive(false);
         }
     }
 }

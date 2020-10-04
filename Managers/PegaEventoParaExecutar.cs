@@ -23,8 +23,9 @@ public class PegaEventoParaExecutar : MonoBehaviour
     {
         if (eventoSolicitado && Input.GetMouseButton(0))
         {
-            //desativa o cheirar e o morder antes de executar um evento
-            desativaCheirarEMorder();
+            //aqui tem que desativar só o cheirar, ou ele dá erro porque não tem objeto na boca
+            //e aí ele não sobe no elevador antes de morder algo
+            //desativaCheirarEMorder();
             metodos.GetComponent<ListaDeEventosJogo>().Invoke(nomeFuncao, 0f);
             eventoSolicitado = false;
         }
