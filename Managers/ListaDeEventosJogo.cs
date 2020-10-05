@@ -27,7 +27,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         //objTerreo.SetActive(true);
         //if (objTerreo.activeSelf)
             player.transform.position = terreoSpawn.transform.position;
-        cameraAp1.SetActive(false);
+        //cameraAp1.SetActive(false);
         //if (player.transform.position == terreoSpawn.transform.position)
            //objPrimeiroAndar.SetActive(false);
     }
