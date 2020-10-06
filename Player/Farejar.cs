@@ -18,6 +18,10 @@ public class Farejar : MonoBehaviour
     //tempo em camera lenta do TimeScale
     public float cameraLenta = 0.4f;
 
+    private void Start()
+    {
+        PegaEventoParaExecutar.desativaCheirar += VisaoOff;
+    }
 
     void Update()
     {
@@ -59,7 +63,6 @@ public class Farejar : MonoBehaviour
         Time.timeScale = cameraLenta;
         EstadosPlayer.estadoCheirando = true;
         DogRaycast.objSendoObservado.GetComponent<ControlaParticula>().podeAtivarPart = true;
-        PegaEventoParaExecutar.desativaCheirarEMorder += VisaoOff;
     }
 
     public void VisaoOff()
@@ -67,6 +70,5 @@ public class Farejar : MonoBehaviour
         ppPretoBranco.SetActive(false);
         Time.timeScale = 1;
         EstadosPlayer.estadoCheirando = false;
-        PegaEventoParaExecutar.desativaCheirarEMorder -= VisaoOff;
     }
 }

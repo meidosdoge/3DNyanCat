@@ -49,7 +49,6 @@ public class Morder : MonoBehaviour
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
         objetoNaBoca.GetComponent<BoxCollider>().enabled = false;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        PegaEventoParaExecutar.desativaCheirarEMorder += SoltaItem;
     }
 
     public void SoltaItem()
@@ -62,6 +61,5 @@ public class Morder : MonoBehaviour
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<BoxCollider>().enabled = true;
-        PegaEventoParaExecutar.desativaCheirarEMorder -= SoltaItem;
     }
 }

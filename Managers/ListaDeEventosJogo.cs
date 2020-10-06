@@ -19,14 +19,13 @@ public class ListaDeEventosJogo : MonoBehaviour
             player.transform.position = primeiroAndarSpawn.transform.position;
         animElevador.SetBool("AbreElevador", true);
         cameraAp1.SetActive(true);
+        PegaEventoParaExecutar.desativaCheirar();
     }
 
     public void Terreo()
     {
             player.transform.position = terreoSpawn.transform.position;
         animElevador.SetBool("AbreElevador", false);
-        //cameraAp1.SetActive(false);
-        //if (player.transform.position == terreoSpawn.transform.position)
-           //objPrimeiroAndar.SetActive(false);
+        PegaEventoParaExecutar.desativaCheirar();
     }
 }
