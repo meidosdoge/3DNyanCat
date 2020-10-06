@@ -39,7 +39,7 @@ public class ControlaParticula : MonoBehaviour
         //vê se tá cheirando e se já interagiu com a partícula
         //se sim, liga a partícula e faz o mix; se não, desliga
 
-        if(podeAtivarPart && EstadosPlayer.estadoHabilidade == "cheirando")
+        if(podeAtivarPart && EstadosPlayer.estadoCheirando)
         {
             particle.SetActive(true);
             MixParticles();
@@ -48,7 +48,7 @@ public class ControlaParticula : MonoBehaviour
         {
             particle.SetActive(false);
         }
-        else if (EstadosPlayer.estadoHabilidade != "cheirando")
+        else if (EstadosPlayer.estadoCheirando == false)
         {
             //desliga as todas as partículas e desfaz o mix
             particle.SetActive(false);
