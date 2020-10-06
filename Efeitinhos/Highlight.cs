@@ -25,7 +25,7 @@ public class Highlight : MonoBehaviour
 
     void Update()
     {
-        if(EstadosPlayer.estadoHabilidade == "mordendo")
+        if(EstadosPlayer.estadoMordendo)
             ligaHighlight = false;
 
         if(!ligaHighlight)

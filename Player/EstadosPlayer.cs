@@ -5,7 +5,7 @@ using UnityEngine;
 public class EstadosPlayer : MonoBehaviour
 {
     public static string estadoMovimentacao = "idle";
-    public static string estadoHabilidade = "inativo";
+    public static bool estadoMordendo = false, estadoCheirando = false;
 
     //possibilidades de estado
     //movimentação: idle, andando, correndo

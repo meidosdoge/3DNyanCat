@@ -68,7 +68,7 @@ public class DogRaycast : MonoBehaviour
                     bocaDog = true;
                     fucinhoDog = true;
                 }
-                else if (whatIHit.transform.CompareTag("EventosJogador"))
+                else if (whatIHit.transform.CompareTag("EventosJogador") && Input.GetMouseButton(0))
                 {
                     whatIHit.transform.GetComponent<PegaEventoParaExecutar>().eventoSolicitado = true;
                 }

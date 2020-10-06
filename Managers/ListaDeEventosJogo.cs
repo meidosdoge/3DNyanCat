@@ -16,19 +16,13 @@ public class ListaDeEventosJogo : MonoBehaviour
 
     public void PrimeiroAndar ()
     {
-        //objPrimeiroAndar.SetActive(true);
-        //if (objPrimeiroAndar.activeSelf)
             player.transform.position = primeiroAndarSpawn.transform.position;
         animElevador.SetBool("AbreElevador", true);
         cameraAp1.SetActive(true);
-        //if (player.transform.position == primeiroAndarSpawn.transform.position)
-            //objTerreo.SetActive(false);
     }
 
     public void Terreo()
     {
-        //objTerreo.SetActive(true);
-        //if (objTerreo.activeSelf)
             player.transform.position = terreoSpawn.transform.position;
         animElevador.SetBool("AbreElevador", false);
         //cameraAp1.SetActive(false);

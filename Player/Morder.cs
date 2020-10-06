@@ -13,10 +13,6 @@ public class Morder : MonoBehaviour
 
     public float forcaDeSoltar = 10;
 
-    private void Start()
-    {
-        PegaEventoParaExecutar.desativaCheirarEMorder += SoltaItem;
-    }
 
     void Update()
     {
@@ -26,9 +22,9 @@ public class Morder : MonoBehaviour
         {
             //solta o item
             if(carregandoItem && Input.GetMouseButtonDown(0)
-            || EstadosPlayer.estadoHabilidade == "mordendo" && Input.GetMouseButtonDown(0))
+            || EstadosPlayer.estadoMordendo && Input.GetMouseButtonDown(0))
             {
-                PegaEventoParaExecutar.desativaCheirarEMorder();
+                SoltaItem();
             }
             else if(!carregandoItem 
                 && Input.GetMouseButtonDown(0) 
@@ -43,21 +39,22 @@ public class Morder : MonoBehaviour
     }
 
 
-    void PegaItem()
+    public void PegaItem()
     {
         objetoNaBoca = DogRaycast.objSendoObservado;
-        EstadosPlayer.estadoHabilidade = "mordendo";
+        EstadosPlayer.estadoMordendo = true;
         carregandoItem = true;        
         objetoNaBoca.transform.parent = jointBoca.transform;
         objetoNaBoca.transform.position = jointBoca.transform.position;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
         objetoNaBoca.GetComponent<BoxCollider>().enabled = false;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        PegaEventoParaExecutar.desativaCheirarEMorder += SoltaItem;
     }
 
     public void SoltaItem()
     {
-        EstadosPlayer.estadoHabilidade = "inativo";
+        EstadosPlayer.estadoMordendo = false;
         carregandoItem = false;
         objetoNaBoca.transform.parent = null;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
@@ -65,5 +62,6 @@ public class Morder : MonoBehaviour
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<BoxCollider>().enabled = true;
+        PegaEventoParaExecutar.desativaCheirarEMorder -= SoltaItem;
     }
 }
