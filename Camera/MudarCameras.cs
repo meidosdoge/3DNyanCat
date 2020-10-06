@@ -7,13 +7,14 @@ public class MudarCameras : MonoBehaviour
     //pega camera atual para fazer a verificação se o player está na visão dela
     Camera camera;
     //referencias de objetos para realizar a transição das cameras e executar o que precisa
-    public GameObject player, cameraPlayer, cameraParticulas;  //não entendi a necessidade dessa aqui
+    public GameObject player, cameraPlayer;
+    public GameObject cameraAp, cameraPartAp;  //não entendi a necessidade dessa aqui
     //variavel que indica se está na camera fixa ou movel, para a mira conseguir funcionar de acordo
     public static bool camNoPlayer = false;
 
     private void Start()
     {
-        camera = GetComponent<Camera>();
+        camera = cameraAp.GetComponent<Camera>();
     }
 
     void Update()
@@ -28,13 +29,28 @@ public class MudarCameras : MonoBehaviour
         {
             cameraPlayer.SetActive(false);
             camNoPlayer = false;
-            cameraParticulas.SetActive(true);
+            cameraAp.SetActive(true);
+            cameraPartAp.SetActive(true);
         }
         else if (!onScreen)
         {
             cameraPlayer.SetActive(true);
             camNoPlayer = true;
-            cameraParticulas.SetActive(false);
+            cameraAp.SetActive(false);
+            cameraPartAp.SetActive(false);
         }
     }
+
+    /*abrir porta quando clica
+    lock player, move dog forward
+    quando o dog entra, rola um fade
+
+    aparece de novo na câmera lá em cima com as portas abrindo
+    direção do dog facing up pra ir pro lado certo 
+
+    fazer a movimentação trocar a direção do olhar do dog
+
+    música dentro do elevador
+    som quando clica
+    som quando chega*/
 }
