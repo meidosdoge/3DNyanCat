@@ -73,7 +73,7 @@ public class ControlaParticula : MonoBehaviour
 
             //move a partícula pro lugar da col
             if(collidePosition.x != 0 || collidePosition.z != 0) 
-                partPool.transform.position = new Vector3 (collidePosition.x, collidePosition.y * 2, collidePosition.z);
+                partPool.transform.position = new Vector3 (collidePosition.x, collidePosition.y + 1, collidePosition.z);
 
             //muda a sprite
             if(!addedSprite)
