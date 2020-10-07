@@ -12,28 +12,39 @@ public class ListaDeEventosJogo : MonoBehaviour
     public GameObject objPrimeiroAndar, objTerreo;
     public GameObject cameraAp1;
 
-    public Animator animElevador;
+    public Animator animElevadorApto, animElevadorTerreo;
 
     public void PrimeiroAndar ()
     {
-        player.transform.position = primeiroAndarSpawn.transform.position;
-        animElevador.SetBool("AbreElevador", true);
+        //coroutine pra abrir o elevador e fazer a transição, leva como argumentos:
+        //quanto tempo leva, cenário que vai ligar, cenário que vai desligar, lugar de spawn
+        StartCoroutine(Elevador(2f, objPrimeiroAndar, objTerreo, primeiroAndarSpawn));
         
         cameraAp1.SetActive(true);
-        objPrimeiroAndar.SetActive(true);
-        objTerreo.SetActive(false);
-        
-        PegaEventoParaExecutar.desativaCheirar();
     }
 
     public void Terreo()
     {
-        player.transform.position = terreoSpawn.transform.position;
-        animElevador.SetBool("AbreElevador", false);
+        StartCoroutine(Elevador(2f, objTerreo, objPrimeiroAndar, terreoSpawn));
+    }
 
-        objPrimeiroAndar.SetActive(false);
-        objTerreo.SetActive(true);
+    public IEnumerator Elevador(float waitTime,
+    GameObject objAtivar, GameObject objDesativar, GameObject spawnPoint)
+    {
+        //abre os elevadores e liga o próximo ambiente
+        objAtivar.SetActive(true);
+        animElevadorTerreo.SetBool("AbreElevador", true);
+        animElevadorApto.SetBool("AbreElevador", true);
+        
+        yield return new WaitForSeconds(waitTime);
 
+        //fecha os elevadores
+        animElevadorApto.SetBool("AbreElevador", false);
+        animElevadorTerreo.SetBool("AbreElevador", false);
+
+        //move o player, desativa o ambiente anterior
+        player.transform.position = spawnPoint.transform.position;
+        objDesativar.SetActive(false);
         PegaEventoParaExecutar.desativaCheirar();
     }
 }
