@@ -32,7 +32,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         animElevador.SetBool("AbreElevador", false);
 
         objPrimeiroAndar.SetActive(false);
-        terreo.SetActive(true);
+        objTerreo.SetActive(true);
 
         PegaEventoParaExecutar.desativaCheirar();
     }
