@@ -35,7 +35,10 @@ public class DogRaycast : MonoBehaviour
         if (Physics.Raycast(ray, out whatIHit, raycastDistance, ~ignoraRaycast)) { 
 
             //eu troquei pra ser o dog o ponto de comparação, pra poder fazer o raycast da camera fixa depois
-            distanceObjRay = Vector3.Distance(dog.transform.position, whatIHit.point);
+            //atualizei pra não pegar a distância em y, era isso que tava quebrando o elevador
+            distanceObjRay = Vector3.Distance(
+            new Vector3 (dog.transform.position.x, 0, dog.transform.position.z),
+            new Vector3 (whatIHit.point.x, 0, whatIHit.point.z));
 
             //armazena o gameobject q está com o mouse em cima para passar essa informação
             //pros outros scripts de morder e cheirar

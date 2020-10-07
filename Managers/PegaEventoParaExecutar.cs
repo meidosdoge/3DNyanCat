@@ -23,10 +23,6 @@ public class PegaEventoParaExecutar : MonoBehaviour
     {
         if (eventoSolicitado)
         {
-            //aqui tem que desativar só o cheirar, ou ele dá erro porque não tem objeto na boca
-            //e aí ele não sobe no elevador antes de morder algo
-            //desativaCheirarEMorder();
-
             metodos.GetComponent<ListaDeEventosJogo>().Invoke(nomeFuncao, 0f);
             eventoSolicitado = false;
         }

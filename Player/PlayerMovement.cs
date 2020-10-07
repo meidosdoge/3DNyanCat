@@ -23,33 +23,41 @@ public class PlayerMovement : MonoBehaviour
             float inputX = Input.GetAxis("Horizontal");
             float inputZ = Input.GetAxis("Vertical");
 
-            Vector3 move = transform.right * inputX + transform.forward * inputZ;
+            if(MudarCameras.camNoPlayer)
+            {
+                //camera 3a pessoa ligada
+                //move mirando pra frente no mouse
+                Vector3 move3aP = transform.right * inputX + transform.forward * inputZ;
+                controller.Move(move3aP * speed * Time.deltaTime);
+            }
+            else
+            {
+                //em um dos aptos
+                //move rodando de acordo com a direção do wasd
+                Vector3 moveNoApto = new Vector3(-inputX, 0.0f, -inputZ);
+                controller.Move(moveNoApto * speed * Time.deltaTime);
 
-            controller.Move(move * speed * Time.deltaTime);
+                if(inputX != 0 || inputZ != 0)
+                {
+                    //roda o player devagar pro lado que ele precisa ir
+                    //transform.rotation = Quaternion.LookRotation(moveNoApto);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveNoApto), 0.2F);
+                }
+            }
 
             velocity.y += gravity * Time.deltaTime;
-
             controller.Move(velocity * Time.deltaTime);
 
+            
             if(controller.isGrounded)
             {
                 velocity.y = 0f;
             }
 
-            if(Input.GetAxis("Run") > 0)
-                controller.Move(move * runSpeed * Time.deltaTime);
-
 
             if(inputX != 0 || inputZ != 0)
-            {
-                if(Input.GetAxis("Run") > 0)
-                {
-                    EstadosPlayer.estadoMovimentacao = "correndo";
-                }
-                else
-                {
-                    EstadosPlayer.estadoMovimentacao = "andando";
-                }
+            {                
+                EstadosPlayer.estadoMovimentacao = "andando";
 
                 /*if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
                 {

@@ -44,11 +44,7 @@ public class MudarCameras : MonoBehaviour
     /*abrir porta quando clica
     lock player, move dog forward
     quando o dog entra, rola um fade
-
     aparece de novo na câmera lá em cima com as portas abrindo
-    direção do dog facing up pra ir pro lado certo 
-
-    fazer a movimentação trocar a direção do olhar do dog
 
     música dentro do elevador
     som quando clica

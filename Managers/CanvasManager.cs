@@ -29,6 +29,14 @@ public class CanvasManager : MonoBehaviour
         cheatsMenu.SetActive(false);
         controlesMenu.SetActive(false);
         jogoPausado = false;
-        Time.timeScale = 1;
+
+        if(EstadosPlayer.estadoCheirando)
+        {
+            Time.timeScale = 0.4f;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }
