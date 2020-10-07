@@ -48,8 +48,6 @@ public class MudarCameras : MonoBehaviour
     aparece de novo na câmera lá em cima com as portas abrindo
     direção do dog facing up pra ir pro lado certo 
 
-    fazer a movimentação trocar a direção do olhar do dog
-
     música dentro do elevador
     som quando clica
     som quando chega*/
