@@ -12,23 +12,26 @@ public class ListaDeEventosJogo : MonoBehaviour
     public GameObject objPrimeiroAndar, objTerreo;
     public GameObject cameraAp1;
 
+    public GameObject elevadorApto, elevadorTerreo;
     public Animator animElevadorApto, animElevadorTerreo;
+
 
     public void PrimeiroAndar ()
     {
         //coroutine pra abrir o elevador e fazer a transição, leva como argumentos:
-        //quanto tempo leva, cenário que vai ligar, cenário que vai desligar, lugar de spawn
-        StartCoroutine(Elevador(2f, objPrimeiroAndar, objTerreo, primeiroAndarSpawn));
+        //tempo, elevador atual, cenário que vai ligar, cenário que vai desligar, lugar de spawn
+        StartCoroutine(Elevador(2f, elevadorTerreo, objPrimeiroAndar, objTerreo, primeiroAndarSpawn));
         
         cameraAp1.SetActive(true);
     }
 
     public void Terreo()
     {
-        StartCoroutine(Elevador(2f, objTerreo, objPrimeiroAndar, terreoSpawn));
+        StartCoroutine(Elevador(2f, elevadorApto, objTerreo, objPrimeiroAndar, terreoSpawn));
     }
 
-    public IEnumerator Elevador(float waitTime,
+
+    public IEnumerator Elevador(float waitTime, GameObject elevadorEntrada,
     GameObject objAtivar, GameObject objDesativar, GameObject spawnPoint)
     {
         //abre os elevadores e liga o próximo ambiente
@@ -36,6 +39,10 @@ public class ListaDeEventosJogo : MonoBehaviour
         animElevadorTerreo.SetBool("AbreElevador", true);
         animElevadorApto.SetBool("AbreElevador", true);
         
+        yield return new WaitForSeconds(waitTime);
+
+        MoveToPoint(elevadorEntrada);
+
         yield return new WaitForSeconds(waitTime);
 
         //fecha os elevadores
@@ -46,5 +53,27 @@ public class ListaDeEventosJogo : MonoBehaviour
         player.transform.position = spawnPoint.transform.position;
         objDesativar.SetActive(false);
         PegaEventoParaExecutar.desativaCheirar();
+    }
+
+
+    void MoveToPoint(GameObject finalPoint)
+    {
+        //setta o objetivo de movimentação usando a posição do objeto e a altura do player
+        Vector3 objetivo = new Vector3 (finalPoint.transform.position.x, player.transform.position.y, finalPoint.transform.position.z);
+
+        //tranca o jogador mas mantém a animação de walk
+        DesativaMovPlayer.desMov.DesativaMov();
+        EstadosPlayer.estadoMovimentacao = "andando";
+
+        //move o player pra dentro do elevador
+        player.transform.position = Vector3.MoveTowards(player.transform.position, objetivo, 0.25f);
+
+        //se o jogador chegou no lugar, volta a movimentação
+        if(Vector3.Distance(player.transform.position, objetivo) < 0.1f)
+        {
+            print("alo");
+            EstadosPlayer.estadoMovimentacao = "idle";
+            DesativaMovPlayer.desMov.AtivaMov();
+        }
     }
 }

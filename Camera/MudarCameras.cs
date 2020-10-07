@@ -41,8 +41,7 @@ public class MudarCameras : MonoBehaviour
         }
     }
 
-    /*lock player, move dog forward
-    quando o dog entra, rola um fade
+    /*quando o dog entra, rola um fade
     aparece de novo na câmera lá em cima com as portas abrindo
 
     música dentro do elevador
