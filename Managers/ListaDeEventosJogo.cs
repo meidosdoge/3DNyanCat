@@ -11,9 +11,10 @@ public class ListaDeEventosJogo : MonoBehaviour
 
     public GameObject elevadorApto, elevadorTerreo;
     public Animator animElevadorApto, animElevadorTerreo;
-    public bool movimenta = false;
+    public Animator fade;
+    
     private GameObject objetivoMovimenta;
-
+    public bool movimenta = false;
 
     //adicione eventos aqui
 
@@ -22,7 +23,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         //leva pro primeiroAndar
 
         //coroutine pra abrir o elevador e fazer a transição, leva como argumentos:
-        //tempo, elevador atual, elevador destino, cenário que vai ligar, cenário que vai desligar, lugar de spawn
+        //tempo, ponto central do elevador atual, ponto central do elevador destino, cenário ligando, cenário desligando, spawn
         StartCoroutine(Elevador(1f, elevadorTerreo, elevadorApto, objPrimeiroAndar, objTerreo, primeiroAndarSpawn));
         
         cameraAp1.SetActive(true);
@@ -33,7 +34,6 @@ public class ListaDeEventosJogo : MonoBehaviour
         //leva pro terreo
         StartCoroutine(Elevador(1f, elevadorApto, elevadorTerreo, objTerreo, objPrimeiroAndar, terreoSpawn));
     }
-    
 
 
     //grande "cutscene" do elevador feita de jeito burro com muitas tarefas e waits, im sorry
@@ -53,7 +53,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         DesativaMovPlayer.desMov.DesativaMov();
         player.transform.LookAt(elevadorEntrada.transform.position);
 
-        //abre os elevadores e liga o próximo ambiente
+        //liga o próximo ambiente e abre os elevadores
         objAtivar.SetActive(true);
         animElevadorTerreo.SetBool("AbreElevador", true);
         animElevadorApto.SetBool("AbreElevador", true);
@@ -64,24 +64,28 @@ public class ListaDeEventosJogo : MonoBehaviour
         movimenta = true;
         yield return new WaitForSeconds(waitTime);
 
-        //fade na câmra
+        //fade tapando câmera
+        fade.SetBool("Fade", true);
 
         //fecha elevadores e espera pra transportar o player
         animElevadorApto.SetBool("AbreElevador", false);
         animElevadorTerreo.SetBool("AbreElevador", false);
         yield return new WaitForSeconds(waitTime);
 
-        //move o player, desativa o ambiente anterior
+        //move o player pro elevador, desativa o ambiente anterior
         player.transform.position = elevadorSaida.transform.position;
         player.transform.LookAt(spawnPoint.transform.position);
         objDesativar.SetActive(false);
 
-        //volta a câmera e abre o elevador
+        //abre o elevador
         animElevadorTerreo.SetBool("AbreElevador", true);
         animElevadorApto.SetBool("AbreElevador", true);
         yield return new WaitForSeconds(waitTime);
 
-        //move o player pro próximo local
+        //tira o fade tapando a câmera
+        fade.SetBool("Fade", false);
+
+        //move o player pra fora do elevador
         objetivoMovimenta = spawnPoint;
         movimenta = true;
         yield return new WaitForSeconds(waitTime);
@@ -97,16 +101,16 @@ public class ListaDeEventosJogo : MonoBehaviour
 
     void MoveToPoint(GameObject finalPoint)
     {
-        //player tá trancado mas isso mantém a animação de walk
+        //player não tá andando, então faço isso pra manter a animação de walk
         EstadosPlayer.estadoMovimentacao = "andando";
 
         //setta o objetivo de movimentação usando a posição do objeto e a altura do player
         Vector3 objetivo = new Vector3 (finalPoint.transform.position.x, player.transform.position.y, finalPoint.transform.position.z);
 
-        //move o player pro objetivo
+        //move o player pro objeto
         player.transform.position = Vector3.MoveTowards(player.transform.position, objetivo, 0.1f);
 
-        //se o jogador chegou no lugar, volta a movimentação
+        //se o jogador chegou no lugar, termina a movimentação
         if(Vector3.Distance(player.transform.position, objetivo) < 0.1f)
         {
             EstadosPlayer.estadoMovimentacao = "idle";
@@ -114,9 +118,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         }
     }
 }    
-    /*quando o dog entra, rola um fade
-    aparece de novo na câmera lá em cima com as portas abrindo
-
-    música dentro do elevador
-    som quando clica
-    som quando chega*/
+    
+/*música dentro do elevador
+som quando clica
+som quando chega*/
