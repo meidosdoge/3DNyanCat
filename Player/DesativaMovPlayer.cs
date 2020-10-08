@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DesativaMovPlayer : MonoBehaviour
 {
+    public static DesativaMovPlayer desMov;
+
     public GameObject player, mainCam;
     private CharacterController playerController;
     private PlayerLook look;
@@ -13,26 +15,12 @@ public class DesativaMovPlayer : MonoBehaviour
 
     void Start()
     {
+        desMov = this;
+
         look = mainCam.GetComponent<PlayerLook>();
         dogRay = mainCam.GetComponent<DogRaycast>();
         move = player.GetComponent<PlayerMovement>();
         playerController = player.GetComponent<CharacterController>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(CanvasManager.jogoPausado)
-        {
-            AtivaCursor();
-            DesativaMov();
-        }
-
-        else
-        {
-            //DesativaCursor();
-            AtivaMov();
-        }
     }
 
     public void AtivaMov()
