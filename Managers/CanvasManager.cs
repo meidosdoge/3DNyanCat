@@ -25,12 +25,12 @@ public class CanvasManager : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado)
         {
             DisablePauseMenu();
-            DesativaMovPlayer.desMov.AtivaMov();
         }
     }
 
     public void DisablePauseMenu()
     {
+        DesativaMovPlayer.desMov.AtivaMov();
         pauseMenu.SetActive(false);
         cheatsMenu.SetActive(false);
         controlesMenu.SetActive(false);
