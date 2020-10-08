@@ -21,6 +21,8 @@ public class MorderSolucaoFisica : MonoBehaviour
         if (rb.velocity.y < -0.1f)
         {
             caindo = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionY;
         }
 
         if (caindo && rb.velocity.y > -0.1f)

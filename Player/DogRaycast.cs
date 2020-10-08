@@ -75,6 +75,10 @@ public class DogRaycast : MonoBehaviour
                 {
                     whatIHit.transform.GetComponent<PegaEventoParaExecutar>().eventoSolicitado = true;
                 }
+                else if(whatIHit.transform.CompareTag("NPC") && Input.GetMouseButton(0))
+                {
+                    whatIHit.transform.GetComponent<ChamaFalaNPC>().ligarTexto = true;
+                }
                 else if (whatIHit.transform.CompareTag("Cenário") || whatIHit.transform.CompareTag ("Untagged"))
                 {
                     bocaDog = false;
