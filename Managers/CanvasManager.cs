@@ -15,11 +15,6 @@ public class CanvasManager : MonoBehaviour
             pauseMenu.SetActive(true);
             jogoPausado = true;
             Time.timeScale = 0;
-
-            //passei esse cara pra cá porque no outro script ele tava ativando a movimentação
-            //sempre que não tava pausado, me impedindo de desativar a mov em outros lugares
-            DesativaMovPlayer.desMov.AtivaCursor();
-            DesativaMovPlayer.desMov.DesativaMov();
         }
 
         else if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado)
@@ -30,7 +25,6 @@ public class CanvasManager : MonoBehaviour
 
     public void DisablePauseMenu()
     {
-        DesativaMovPlayer.desMov.AtivaMov();
         pauseMenu.SetActive(false);
         cheatsMenu.SetActive(false);
         controlesMenu.SetActive(false);

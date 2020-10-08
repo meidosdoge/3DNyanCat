@@ -40,4 +40,13 @@ public class MudarCameras : MonoBehaviour
             cameraPartAp.SetActive(false);
         }
     }
+
+    /*abrir porta quando clica
+    lock player, move dog forward
+    quando o dog entra, rola um fade
+    aparece de novo na câmera lá em cima com as portas abrindo
+
+    música dentro do elevador
+    som quando clica
+    som quando chega*/
 }
