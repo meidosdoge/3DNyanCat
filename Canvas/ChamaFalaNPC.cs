@@ -9,9 +9,11 @@ public class ChamaFalaNPC : MonoBehaviour
     public GameObject objetoComTexto;
     public bool ligarTexto;
 
+    public int reinteragir = 1;
+
     private void Update()
     {
-        if (ligarTexto)
+        if (ligarTexto && reinteragir%2 == 0)
         {
             objetoComTexto.SetActive(true);
             ligarTexto = false;

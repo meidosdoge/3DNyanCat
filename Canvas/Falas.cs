@@ -30,6 +30,7 @@ public class Falas : MonoBehaviour
 
     bool comecaTexto;
 
+
     void Start()
     {
         LPSOriginal = LPS;
@@ -66,6 +67,8 @@ public class Falas : MonoBehaviour
         //identifica quando o arquivo de texto acaba
         if(tempo > (1f/LPS) && i < arquivoDeTexto.Length)
         {
+            DesativaMovPlayer.desMov.DesativaMov();
+
             //ação pra quando ele encontra um traço no arquivo de texto
             //que marca o inicio de outro paragrafo
             if (arquivoDeTexto[i] == '-')
@@ -109,6 +112,7 @@ public class Falas : MonoBehaviour
             balao.text = "";
             i = 0;
             this.gameObject.SetActive(false);
+            DesativaMovPlayer.desMov.AtivaMov();
         }
     }
 }
