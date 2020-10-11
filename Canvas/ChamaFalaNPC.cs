@@ -13,7 +13,15 @@ public class ChamaFalaNPC : MonoBehaviour
 
     private void Update()
     {
-        if (ligarTexto && reinteragir%2 == 0)
+        if (MudarCameras.camNoPlayer)
+        {
+            if (ligarTexto && reinteragir % 2 == 0)
+            {
+                objetoComTexto.SetActive(true);
+                ligarTexto = false;
+            }
+        }
+        else if (MudarCameras.camNoPlayer == false && ligarTexto)
         {
             objetoComTexto.SetActive(true);
             ligarTexto = false;

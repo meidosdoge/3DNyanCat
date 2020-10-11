@@ -78,7 +78,8 @@ public class DogRaycast : MonoBehaviour
                 else if(whatIHit.transform.CompareTag("NPC") && Input.GetMouseButtonUp(0))
                 {
                     whatIHit.transform.GetComponent<ChamaFalaNPC>().ligarTexto = true;
-                    whatIHit.transform.GetComponent<ChamaFalaNPC>().reinteragir += 1;
+                    if (MudarCameras.camNoPlayer)
+                        whatIHit.transform.GetComponent<ChamaFalaNPC>().reinteragir += 1;
                 }
                 else if (whatIHit.transform.CompareTag("Cenário") || whatIHit.transform.CompareTag ("Untagged"))
                 {

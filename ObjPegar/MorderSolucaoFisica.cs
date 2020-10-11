@@ -21,15 +21,14 @@ public class MorderSolucaoFisica : MonoBehaviour
         if (rb.velocity.y < -0.1f)
         {
             caindo = true;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         }
 
         if (caindo && rb.velocity.y > -0.1f)
         {
             caindo = false;
-            rb.constraints = RigidbodyConstraints.FreezePosition;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            DesativaMovPlayer.desMov.AtivaMov();
         }
     }
 }
