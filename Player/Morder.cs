@@ -13,6 +13,8 @@ public class Morder : MonoBehaviour
 
     public float forcaDeSoltar = 10;
 
+    bool manterNaBoca;
+
 
     void Update()
     {
@@ -35,6 +37,9 @@ public class Morder : MonoBehaviour
                 //morde o item. Tem que ser nessa ordem os ifs, primeiro o solta e depois o morde
                 PegaItem();
             }
+
+
+            ManterObjetoNaBoca();
         }
     }
 
@@ -43,23 +48,32 @@ public class Morder : MonoBehaviour
     {
         objetoNaBoca = DogRaycast.objSendoObservado;
         EstadosPlayer.estadoMordendo = true;
-        carregandoItem = true;        
-        objetoNaBoca.transform.parent = jointBoca.transform;
+        carregandoItem = true;
         objetoNaBoca.transform.position = jointBoca.transform.position;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
-        objetoNaBoca.GetComponent<BoxCollider>().enabled = false;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        manterNaBoca = true;
+        objetoNaBoca.layer = 9;
     }
 
     public void SoltaItem()
     {
         EstadosPlayer.estadoMordendo = false;
         carregandoItem = false;
-        objetoNaBoca.transform.parent = null;
-        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+        DesativaMovPlayer.desMov.DesativaMov();
+        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
-        objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        objetoNaBoca.GetComponent<BoxCollider>().enabled = true;
+        manterNaBoca = false;
+        objetoNaBoca.layer = 0;
+    }
+
+
+    void ManterObjetoNaBoca()
+    {
+        if (manterNaBoca)
+        {
+            objetoNaBoca.transform.position = jointBoca.gameObject.transform.position;
+            objetoNaBoca.transform.rotation = jointBoca.gameObject.transform.rotation;
+        }
     }
 }
