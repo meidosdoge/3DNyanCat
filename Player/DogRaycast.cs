@@ -40,10 +40,6 @@ public class DogRaycast : MonoBehaviour
             new Vector3 (dog.transform.position.x, 0, dog.transform.position.z),
             new Vector3 (whatIHit.point.x, 0, whatIHit.point.z));
 
-            //armazena o gameobject q está com o mouse em cima para passar essa informação
-            //pros outros scripts de morder e cheirar
-            objSendoObservado = whatIHit.transform.gameObject;
-
             //ifs para calcular a distãncia e 
             //fazer verificação do que o jogador pode fazer ou n
             if (distanceObjRay >= distLonge ) {
@@ -60,22 +56,34 @@ public class DogRaycast : MonoBehaviour
                 {
                     fucinhoDog = true;
                     bocaDog = false;
+
+                    //armazena o gameobject q está com o mouse em cima para passar essa informação
+                    //pros outros scripts de morder e cheirar
+                    objSendoObservado = whatIHit.transform.gameObject;
                 }
                 else if (whatIHit.transform.CompareTag("Morder"))
                 {
                     bocaDog = true;
                     fucinhoDog = false;
+
+                    //armazena o gameobject q está com o mouse em cima para passar essa informação
+                    //pros outros scripts de morder e cheirar
+                    objSendoObservado = whatIHit.transform.gameObject;
                 }
                 else if (whatIHit.transform.CompareTag("FarejarEMorder"))
                 {
                     bocaDog = true;
                     fucinhoDog = true;
+
+                    //armazena o gameobject q está com o mouse em cima para passar essa informação
+                    //pros outros scripts de morder e cheirar
+                    objSendoObservado = whatIHit.transform.gameObject;
                 }
                 else if (whatIHit.transform.CompareTag("EventosJogador") && Input.GetMouseButton(0))
                 {
                     whatIHit.transform.GetComponent<PegaEventoParaExecutar>().eventoSolicitado = true;
                 }
-                else if(whatIHit.transform.CompareTag("NPC") && Input.GetMouseButtonUp(0))
+                else if(whatIHit.transform.CompareTag("NPC") && Input.GetMouseButtonDown(0))
                 {
                     whatIHit.transform.GetComponent<ChamaFalaNPC>().ligarTexto = true;
                     if (MudarCameras.camNoPlayer)
@@ -89,6 +97,15 @@ public class DogRaycast : MonoBehaviour
 
             }
 
+        }
+        else
+        {
+            bocaDog = false;
+            fucinhoDog = false;
+
+            //armazena o gameobject q está com o mouse em cima para passar essa informação
+            //pros outros scripts de morder e cheirar
+            objSendoObservado = null;
         }
     }
 }

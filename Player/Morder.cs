@@ -15,7 +15,6 @@ public class Morder : MonoBehaviour
 
     bool manterNaBoca;
 
-
     void Update()
     {
         //Debug.Log(DogRaycast.bocaDog);
@@ -49,22 +48,23 @@ public class Morder : MonoBehaviour
         objetoNaBoca = DogRaycast.objSendoObservado;
         EstadosPlayer.estadoMordendo = true;
         carregandoItem = true;
+        objetoNaBoca.layer = 9;
         objetoNaBoca.transform.position = jointBoca.transform.position;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         manterNaBoca = true;
-        objetoNaBoca.layer = 9;
     }
 
     public void SoltaItem()
     {
         EstadosPlayer.estadoMordendo = false;
         carregandoItem = false;
-        DesativaMovPlayer.desMov.DesativaMov();
+        //DesativaMovPlayer.desMov.DesativaMov();
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
         manterNaBoca = false;
         objetoNaBoca.layer = 0;
+        objetoNaBoca = null;
     }
 
 
