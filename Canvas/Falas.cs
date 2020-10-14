@@ -60,7 +60,7 @@ public class Falas : MonoBehaviour
         //aumenta a velocidade do texto quando clica com o mouse
         if (Input.GetMouseButtonDown(0))
         {
-            LPS *= 10;
+            LPS *= 3;
         }
 
         //adiciona a proxima letra quando der o tempo pra fazer isso
@@ -112,10 +112,11 @@ public class Falas : MonoBehaviour
 
 
         //desliga o objeto de texto quando o texto acabar e o jogador fechar ele
-        else if (i >= arquivoDeTexto.Length && Input.GetMouseButtonDown(0))
+        else if (i >= arquivoDeTexto.Length && Input.GetMouseButtonUp(0))
         {
             balao.text = "";
             i = 0;
+            LPS = LPSOriginal;
             this.gameObject.SetActive(false);
             DesativaMovPlayer.desMov.AtivaMov();
 
