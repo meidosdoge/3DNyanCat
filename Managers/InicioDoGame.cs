@@ -18,6 +18,8 @@ public class InicioDoGame : MonoBehaviour
         {
             obj.SetActive(false);
         }
+
+        SoundManager.sound.Ambiente();
     }
 
     private void Start()

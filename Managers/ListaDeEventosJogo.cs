@@ -55,6 +55,7 @@ public class ListaDeEventosJogo : MonoBehaviour
 
         //liga o próximo ambiente e abre os elevadores
         objAtivar.SetActive(true);
+        SoundManager.sound.Elevador();
         animElevadorTerreo.SetBool("AbreElevador", true);
         animElevadorApto.SetBool("AbreElevador", true);
         yield return new WaitForSeconds(waitTime);
@@ -62,6 +63,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         //move o player pro próximo local
         objetivoMovimenta = elevadorEntrada;
         movimenta = true;
+        SoundManager.sound.Pause(); //toca a música de elevador
         yield return new WaitForSeconds(waitTime);
 
         //fade tapando câmera
@@ -88,12 +90,14 @@ public class ListaDeEventosJogo : MonoBehaviour
         //move o player pra fora do elevador
         objetivoMovimenta = spawnPoint;
         movimenta = true;
+        SoundManager.sound.Elevador();
         yield return new WaitForSeconds(waitTime);
 
         //fecha o elevador
         animElevadorApto.SetBool("AbreElevador", false);
         animElevadorTerreo.SetBool("AbreElevador", false);
-        yield return new WaitForSeconds(1.5f);
+        SoundManager.sound.Ambiente();
+        yield return new WaitForSeconds(1.5f);        
 
         //libera o player da "cutscene"
         DesativaMovPlayer.desMov.AtivaMov();
@@ -117,8 +121,4 @@ public class ListaDeEventosJogo : MonoBehaviour
             movimenta = false;
         }
     }
-}    
-    
-/*música dentro do elevador
-som quando clica
-som quando chega*/
+}

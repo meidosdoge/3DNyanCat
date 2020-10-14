@@ -20,6 +20,8 @@ public class CanvasManager : MonoBehaviour
             //sempre que não tava pausado, me impedindo de desativar a mov em outros lugares
             DesativaMovPlayer.desMov.AtivaCursor();
             DesativaMovPlayer.desMov.DesativaMov();
+
+            SoundManager.sound.Pause();
         }
 
         else if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado)
@@ -35,6 +37,7 @@ public class CanvasManager : MonoBehaviour
         cheatsMenu.SetActive(false);
         controlesMenu.SetActive(false);
         jogoPausado = false;
+        SoundManager.sound.Ambiente();
 
         if(EstadosPlayer.estadoCheirando)
         {
