@@ -57,9 +57,11 @@ public class SoundManager : MonoBehaviour
         if(ligando)
         {
             tvLiga.SetActive(true);
+            tvDesliga.SetActive(false);
         }
         else
         {
+            tvLiga.SetActive(false);
             tvDesliga.SetActive(true);
         }
     }
