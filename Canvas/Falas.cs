@@ -69,6 +69,9 @@ public class Falas : MonoBehaviour
         {
             DesativaMovPlayer.desMov.DesativaMov();
 
+            //chama som de fala
+            SoundManager.sound.VozNPC(true);
+
             //ação pra quando ele encontra um traço no arquivo de texto
             //que marca o inicio de outro paragrafo
             if (arquivoDeTexto[i] == '-')
@@ -83,6 +86,8 @@ public class Falas : MonoBehaviour
                     balao.text = "";
                     i++;
                     correTempo = true;
+
+                    SoundManager.sound.VozNPC(false);
                 }
             }
 
@@ -113,6 +118,8 @@ public class Falas : MonoBehaviour
             i = 0;
             this.gameObject.SetActive(false);
             DesativaMovPlayer.desMov.AtivaMov();
+
+            SoundManager.sound.VozNPC(false);
         }
     }
 }

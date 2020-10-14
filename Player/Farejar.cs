@@ -63,6 +63,8 @@ public class Farejar : MonoBehaviour
         Time.timeScale = cameraLenta;
         EstadosPlayer.estadoCheirando = true;
         DogRaycast.objSendoObservado.GetComponent<ControlaParticula>().podeAtivarPart = true;
+
+        SoundManager.sound.DogCheira(true);
     }
 
     public void VisaoOff()
@@ -70,5 +72,7 @@ public class Farejar : MonoBehaviour
         ppPretoBranco.SetActive(false);
         Time.timeScale = 1;
         EstadosPlayer.estadoCheirando = false;
+
+        SoundManager.sound.DogCheira(false);
     }
 }

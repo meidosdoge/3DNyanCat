@@ -58,30 +58,13 @@ public class PlayerMovement : MonoBehaviour
             if(inputX != 0 || inputZ != 0)
             {                
                 EstadosPlayer.estadoMovimentacao = "andando";
-
-                /*if(!somPasso1.activeInHierarchy && !SomPassos.colideTapete)
-                {
-                    somPasso1.SetActive(true);
-                    somPasso2.SetActive(false);
-                }
-                if(!somPasso2.activeInHierarchy && SomPassos.colideTapete)
-                {
-                    somPasso1.SetActive(false);
-                    somPasso2.SetActive(true);
-                }*/
+                SoundManager.sound.DogMove(true);
             }
             else
             {
                 EstadosPlayer.estadoMovimentacao = "idle";
-                //somPasso1.SetActive(false);
-                //somPasso2.SetActive(false);
+                SoundManager.sound.DogMove(false);
             }
         }
     }
-
-    /*void OnDisable()
-    {
-        somPasso1.SetActive(false);
-        somPasso2.SetActive(false);
-    }*/
 }

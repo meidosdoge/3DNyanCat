@@ -56,6 +56,7 @@ public class ControlaParticula : MonoBehaviour
 
             EstadosPlayer.gerandoParticula = false;
             ParticleArray.settou1 = false;
+            SoundManager.sound.MisturaCheiro(false);
         }
     }
 
@@ -80,6 +81,8 @@ public class ControlaParticula : MonoBehaviour
             {
                 mixTexAnim.SetSprite(0, ParticleArray.partArray.chosenSprite); //usa a sprite escolhida no script particle array
                 addedSprite = true;
+
+                SoundManager.sound.MisturaCheiro(true);
             }
         }
         else
@@ -91,6 +94,8 @@ public class ControlaParticula : MonoBehaviour
             partPool.SetActive(false);  //desativa a partícula de mistura na cena
             addedSprite = false; //limpa a sprite 
             ParticleArray.partArray.settouSprite = false;
+
+            SoundManager.sound.MisturaCheiro(false);
         }
     }
 
