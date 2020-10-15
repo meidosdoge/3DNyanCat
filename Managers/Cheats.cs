@@ -26,6 +26,12 @@ public class Cheats : MonoBehaviour
 
     public void Teletransporte(GameObject spawn)
     {
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
         //liga o outro ambiente pra garantir que não vai ter abismo
         if(apto1.activeInHierarchy)
             terreo.SetActive(true);

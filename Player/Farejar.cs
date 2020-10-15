@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Farejar : MonoBehaviour
 {
+    public static Farejar fareja; //referência a esse script
+
     public float farejaDur = 100f; //total de permissão pra cheirar
     public float uso = 5f; //gasto por cheiro
     public float regenera = 0.5f; //tempo de regeneração da barra
@@ -21,6 +23,7 @@ public class Farejar : MonoBehaviour
     private void Start()
     {
         PegaEventoParaExecutar.desativaCheirar += VisaoOff;
+        fareja = this;
     }
 
     void Update()
