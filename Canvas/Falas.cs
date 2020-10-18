@@ -55,6 +55,8 @@ public class Falas : MonoBehaviour
 
     void LeArquivoDeTexto()
     {
+        SoundManager.sound.DogMove(false);
+
         tempo += Time.deltaTime;
 
         //aumenta a velocidade do texto quando clica com o mouse
