@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class Falas : MonoBehaviour
 {
     //recebe o nome do arquivo pra pegar o arquivo dentro da pasta
-    public string nomeArquivoComTexto;
+    //public string nomeArquivoComTexto;
+
+    public bool acabouTexto;
 
     //string que recebe todos os caracteres do arquivo
-    public string arquivoDeTexto;
+    public string texto;
 
     //letras Por Segundo 
     public float LPS, LPSOriginal;
@@ -36,7 +38,7 @@ public class Falas : MonoBehaviour
         LPSOriginal = LPS;
 
         //NAO PODE MUDAR A PASTA QUE ESTÃO OS TEXTOS
-        arquivoDeTexto = File.ReadAllText("Assets\\_Falas\\" + nomeArquivoComTexto + ".txt");
+        //arquivoDeTexto = File.ReadAllText("Assets\\_Falas\\" + nomeArquivoComTexto + ".txt");
 
         balao.text = "";
     }
@@ -55,6 +57,8 @@ public class Falas : MonoBehaviour
 
     void LeArquivoDeTexto()
     {
+        SoundManager.sound.DogMove(false);
+
         tempo += Time.deltaTime;
 
         //aumenta a velocidade do texto quando clica com o mouse
@@ -65,7 +69,7 @@ public class Falas : MonoBehaviour
 
         //adiciona a proxima letra quando der o tempo pra fazer isso
         //identifica quando o arquivo de texto acaba
-        if(tempo > (1f/LPS) && i < arquivoDeTexto.Length)
+        if(tempo > (1f/LPS) && i < texto.Length)
         {
             DesativaMovPlayer.desMov.DesativaMov();
 
@@ -74,7 +78,7 @@ public class Falas : MonoBehaviour
 
             //ação pra quando ele encontra um traço no arquivo de texto
             //que marca o inicio de outro paragrafo
-            if (arquivoDeTexto[i] == '-')
+            if (texto[i] == '-')
             {
                 correTempo = false;
 
@@ -96,7 +100,7 @@ public class Falas : MonoBehaviour
             else
             {
                 //adiciona as letras do arquivo de texto
-                balao.text += arquivoDeTexto[i];
+                balao.text += texto[i];
             }
 
             if (correTempo)
@@ -112,13 +116,14 @@ public class Falas : MonoBehaviour
 
 
         //desliga o objeto de texto quando o texto acabar e o jogador fechar ele
-        else if (i >= arquivoDeTexto.Length && Input.GetMouseButtonUp(0))
+        else if (i >= texto.Length && Input.GetMouseButtonUp(0))
         {
             balao.text = "";
             i = 0;
             LPS = LPSOriginal;
             this.gameObject.SetActive(false);
             DesativaMovPlayer.desMov.AtivaMov();
+            acabouTexto = true;
 
             SoundManager.sound.VozNPC(false);
         }

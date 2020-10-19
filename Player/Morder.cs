@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Morder : MonoBehaviour
 {
+    //fala pro tutorial se o jogador aprendeu a morder
+    public static bool morderTutorial;
+
+    public static Morder morde; //referência a esse script
+
     bool carregandoItem = false; //o dog tá com um item
 
     //lugar em que o objeto vai ficar na boca
@@ -11,9 +16,12 @@ public class Morder : MonoBehaviour
     //pega as propriedades do objeto que está na boca do dog
     public GameObject objetoNaBoca;
 
-    public float forcaDeSoltar = 10;
-
     bool manterNaBoca;
+
+    void Awake()
+    {
+        morde = this;
+    }
 
     void Update()
     {
@@ -53,17 +61,18 @@ public class Morder : MonoBehaviour
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = true;
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         manterNaBoca = true;
+
+        morderTutorial = true;
     }
 
     public void SoltaItem()
     {
         EstadosPlayer.estadoMordendo = false;
         carregandoItem = false;
-        //DesativaMovPlayer.desMov.DesativaMov();
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
         manterNaBoca = false;
-        objetoNaBoca.layer = 0;
+        objetoNaBoca.layer = 12;
         objetoNaBoca = null;
     }
 

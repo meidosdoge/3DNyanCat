@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Farejar : MonoBehaviour
 {
+    //fala pro tutorial se o jogador aprendeu a cheirar
+    public static bool cheirarTutorial, desativarCheiroTutorial;
+
+    public static Farejar fareja; //referência a esse script
+
     public float farejaDur = 100f; //total de permissão pra cheirar
     public float uso = 5f; //gasto por cheiro
     public float regenera = 0.5f; //tempo de regeneração da barra
@@ -21,6 +26,7 @@ public class Farejar : MonoBehaviour
     private void Start()
     {
         PegaEventoParaExecutar.desativaCheirar += VisaoOff;
+        fareja = this;
     }
 
     void Update()
@@ -64,6 +70,7 @@ public class Farejar : MonoBehaviour
         EstadosPlayer.estadoCheirando = true;
         DogRaycast.objSendoObservado.GetComponent<ControlaParticula>().podeAtivarPart = true;
 
+        cheirarTutorial = true;
         SoundManager.sound.DogCheira(true);
     }
 
@@ -73,6 +80,7 @@ public class Farejar : MonoBehaviour
         Time.timeScale = 1;
         EstadosPlayer.estadoCheirando = false;
 
+        desativarCheiroTutorial = true;
         SoundManager.sound.DogCheira(false);
     }
 }
