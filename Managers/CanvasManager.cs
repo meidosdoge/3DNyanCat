@@ -22,6 +22,7 @@ public class CanvasManager : MonoBehaviour
             DesativaMovPlayer.desMov.DesativaMov();
 
             SoundManager.sound.Pause();
+            SoundManager.sound.DogMove(false);
         }
 
         else if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado)

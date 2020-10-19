@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Morder : MonoBehaviour
 {
+    public static Morder morde; //referência a esse script
+
     bool carregandoItem = false; //o dog tá com um item
 
     //lugar em que o objeto vai ficar na boca
@@ -14,6 +16,11 @@ public class Morder : MonoBehaviour
     public float forcaDeSoltar = 10;
 
     bool manterNaBoca;
+
+    void Awake()
+    {
+        morde = this;
+    }
 
     void Update()
     {
