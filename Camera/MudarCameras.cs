@@ -8,13 +8,13 @@ public class MudarCameras : MonoBehaviour
     Camera camera;
     //referencias de objetos para realizar a transição das cameras e executar o que precisa
     public GameObject player, cameraPlayer;
-    public GameObject cameraAp, cameraPartAp;  //não entendi a necessidade dessa aqui
+    //public GameObject cameraAp, cameraPartAp;  //não entendi a necessidade dessa aqui
     //variavel que indica se está na camera fixa ou movel, para a mira conseguir funcionar de acordo
     public static bool camNoPlayer = false;
 
     private void Start()
     {
-        camera = cameraAp.GetComponent<Camera>();
+        camera = this.GetComponent<Camera>();
     }
 
     void Update()
@@ -29,15 +29,15 @@ public class MudarCameras : MonoBehaviour
         {
             cameraPlayer.SetActive(false);
             camNoPlayer = false;
-            cameraAp.SetActive(true);
-            cameraPartAp.SetActive(true);
+            this.GetComponent<Camera>().depth = 0;
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
         else if (!onScreen)
         {
             cameraPlayer.SetActive(true);
             camNoPlayer = true;
-            cameraAp.SetActive(false);
-            cameraPartAp.SetActive(false);
+            this.GetComponent<Camera>().depth = -2;
+            this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
