@@ -13,6 +13,8 @@ public class ScriptTutorial : MonoBehaviour
     //caixas de texto para lembrar o jogador do que se tem que fazer
     public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro;
 
+    public GameObject NPC;
+
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +95,8 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial >= 9)
         {
+            NPC.GetComponent<NPC_Interagir>().enabled = true;
+            NPC.GetComponent<BehaviorExecutor>().enabled = true;
             this.gameObject.SetActive(false);
         }
     }
