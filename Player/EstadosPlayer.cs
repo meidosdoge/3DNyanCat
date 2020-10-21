@@ -7,6 +7,8 @@ public class EstadosPlayer : MonoBehaviour
     public static string estadoMovimentacao = "idle";
     public static bool estadoMordendo = false, estadoCheirando = false;
 
+    public Animator estadosAnimacao;
+
     //possibilidades de estado
     //movimentação: idle, andando, correndo
     //ação da cara: inativo, cheirando, mordendo
@@ -17,8 +19,13 @@ public class EstadosPlayer : MonoBehaviour
 
     void Update()
     {
-        //print("estadoMovimentacao " + estadoMovimentacao);
-        //print("estadoHabilidade " + estadoHabilidade);
-        //print(gerandoParticula);
+        switch (estadoMovimentacao){
+            case "idle":
+                estadosAnimacao.SetBool("Andando", false);
+                break;
+            case "andando":
+                estadosAnimacao.SetBool("Andando", true);
+                break;
+        }
     }
 }
