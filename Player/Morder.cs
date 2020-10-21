@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Morder : MonoBehaviour
 {
+    //fala pro tutorial se o jogador aprendeu a morder
     public static bool morderTutorial;
+
     public static Morder morde; //referência a esse script
 
     bool carregandoItem = false; //o dog tá com um item
