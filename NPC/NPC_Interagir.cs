@@ -15,7 +15,7 @@ public class NPC_Interagir : MonoBehaviour
 
     void Update()
     {
-        ControlaTV();
+
     }
 
     void OnCollisionEnter(Collision other)
@@ -40,4 +40,22 @@ public class NPC_Interagir : MonoBehaviour
             SoundManager.sound.SomTV(false);
         }
     }
+
+    /*
+    movimenta npc de acordo com o navmesh pra não bater nas coisa
+    fazer máquina pela btree
+    escolhe pontos aleatórios dentro da mesh e vai
+
+    se passa em um obj que interage, interrompe mov e usa obj
+    depois de um intervalo no obj, volta mov
+
+    colocar objs: controle, pia, cadeira por enquanto
+    fazer isso de forma que dê pra adicionar outros objs depois
+    então sem bools complicadas e específicas
+
+    depois, fazer ranged view
+    se ver o player, persegue
+    se não vê mais o player, para
+    se chega perto do player, reseta o nível
+    */
 }
