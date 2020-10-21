@@ -90,16 +90,24 @@ public class SoundManager : MonoBehaviour
     
     public void DogMove(bool movendo)
     {
-        //se o dog tá andando
-        if(movendo)
+        //se o dog tá andando e não tá cheirando
+        if(movendo && !EstadosPlayer.estadoCheirando)
         {
             dogMove.SetActive(true);
             dogIdle.SetActive(false);
         }
         else
         {
-            dogMove.SetActive(false);
-            dogIdle.SetActive(true);
+            if (CanvasManager.jogoPausado || EstadosPlayer.estadoCheirando)
+            {
+                dogMove.SetActive(false);
+                dogIdle.SetActive(false);
+            }
+            else
+            {
+                dogMove.SetActive(false);
+                dogIdle.SetActive(true);
+            }
         }
     }
 

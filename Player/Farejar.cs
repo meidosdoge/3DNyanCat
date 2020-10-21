@@ -7,7 +7,6 @@ public class Farejar : MonoBehaviour
 {
     //fala pro tutorial se o jogador aprendeu a cheirar
     public static bool cheirarTutorial, desativarCheiroTutorial;
-
     public static Farejar fareja; //referência a esse script
 
     public float farejaDur = 100f; //total de permissão pra cheirar
