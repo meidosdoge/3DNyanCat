@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ControlaParticula : MonoBehaviour
 {
+    //fala pro tutorial se o jogador aprendeu juntar particulas
+    public static bool fusaoTutorial;
+
     private GameObject particle; //objeto com o emitter
     private ParticleSystem parSys; //referência pro particle system
     
@@ -118,6 +121,8 @@ public class ControlaParticula : MonoBehaviour
     //liga e desliga o gerador de partícula com a colisão
     void OnTriggerEnter(Collider other) 
     {
+        fusaoTutorial = true;
+
         var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
         var mainParticle = parSys.main; //referência de cores das partículas
         var mainParticle2 = other.gameObject.GetComponent<ParticleSystem>().main;

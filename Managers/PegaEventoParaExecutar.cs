@@ -21,10 +21,13 @@ public class PegaEventoParaExecutar : MonoBehaviour
 
     private void Update()
     {
-        if (eventoSolicitado)
+        if (eventoSolicitado && Input.GetMouseButton(0))
         {
-            metodos.GetComponent<ListaDeEventosJogo>().Invoke(nomeFuncao, 0f);
-            eventoSolicitado = false;
+            if (!IsInvoking(nomeFuncao))
+            {
+                metodos.GetComponent<ListaDeEventosJogo>().Invoke(nomeFuncao, 0f);
+                eventoSolicitado = false;
+            }
         }
     }
 }

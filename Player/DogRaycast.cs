@@ -32,7 +32,8 @@ public class DogRaycast : MonoBehaviour
 
         RaycastHit whatIHit;
 
-        if (Physics.Raycast(ray, out whatIHit, raycastDistance, ~ignoraRaycast)) { 
+        if (Physics.Raycast(ray, out whatIHit, raycastDistance, ~ignoraRaycast)) {
+
 
             //eu troquei pra ser o dog o ponto de comparação, pra poder fazer o raycast da camera fixa depois
             //atualizei pra não pegar a distância em y, era isso que tava quebrando o elevador
@@ -79,7 +80,7 @@ public class DogRaycast : MonoBehaviour
                     //pros outros scripts de morder e cheirar
                     objSendoObservado = whatIHit.transform.gameObject;
                 }
-                else if (whatIHit.transform.CompareTag("EventosJogador") && Input.GetMouseButton(0))
+                else if (whatIHit.transform.CompareTag("EventosJogador"))
                 {
                     whatIHit.transform.GetComponent<PegaEventoParaExecutar>().eventoSolicitado = true;
                 }
