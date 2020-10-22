@@ -86,6 +86,8 @@ public class ControlaParticula : MonoBehaviour
                 addedSprite = true;
 
                 SoundManager.sound.MisturaCheiro(true);
+
+                fusaoTutorial = true;
             }
         }
         else
@@ -121,7 +123,6 @@ public class ControlaParticula : MonoBehaviour
     //liga e desliga o gerador de partícula com a colisão
     void OnTriggerEnter(Collider other) 
     {
-        fusaoTutorial = true;
 
         var texAnim = parSys.textureSheetAnimation; //referência da animação por sheet
         var mainParticle = parSys.main; //referência de cores das partículas
@@ -134,7 +135,7 @@ public class ControlaParticula : MonoBehaviour
         
         if(!EstadosPlayer.gerandoParticula)
         {
-            if(!ParticleArray.settou1) 
+            if (!ParticleArray.settou1) 
             {
                 //pega o número da primeira partícula
                 ParticleArray.partArray.currentNum1 = texAnim.GetSprite(0).name;
