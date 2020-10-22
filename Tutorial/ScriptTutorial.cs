@@ -11,15 +11,18 @@ public class ScriptTutorial : MonoBehaviour
     //hitboxes do tutorial
     public GameObject limite1, limite2;
     //caixas de texto para lembrar o jogador do que se tem que fazer
-    public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro;
-
+    public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro, indicaCesta;
+    // ativa NPC que segue
     public GameObject NPC;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         parteTutorial = 1;
+        limite1.SetActive(true);
+        limite2.SetActive(true);
     }
 
     // Update is called once per frame
@@ -95,6 +98,7 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial >= 9)
         {
+            indicaCesta.SetActive(true);
             NPC.GetComponent<NPC_Interagir>().enabled = true;
             NPC.GetComponent<BehaviorExecutor>().enabled = true;
             this.gameObject.SetActive(false);
