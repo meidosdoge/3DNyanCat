@@ -29,13 +29,15 @@ public class MudarCameras : MonoBehaviour
         {
             cameraPlayer.SetActive(false);
             camNoPlayer = false;
-            this.GetComponent<Camera>().depth = 0;
             this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().depth = 1;
+            this.GetComponent<Camera>().depth = 0;
         }
         else if (!onScreen)
         {
             cameraPlayer.SetActive(true);
             camNoPlayer = true;
+            this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().depth = -2;
             this.GetComponent<Camera>().depth = -2;
             this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
