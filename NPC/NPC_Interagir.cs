@@ -62,8 +62,6 @@ public class NPC_Interagir : MonoBehaviour
     
     se chega perto do player, reseta o nível
 
-    cutscene
-
     Ligar coisas do tutorial, desligar mov do hitchcock
     Fazer uma build
     */
