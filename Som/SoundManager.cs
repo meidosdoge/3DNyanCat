@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
 
     public GameObject tvLiga;
     public GameObject tvDesliga;
+    public GameObject pia;
 
     [Header("Sons do Dog")]
     public GameObject dogIdle;
@@ -49,6 +50,12 @@ public class SoundManager : MonoBehaviour
         //excuta música de pause
         ambiente.SetActive(false);
         pause.SetActive(true);
+    }
+
+    public void SomPia()
+    {
+        //som da pia
+        pia.SetActive(true);
     }
 
     public void SomTV(bool ligando)

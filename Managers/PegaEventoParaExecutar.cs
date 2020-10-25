@@ -21,7 +21,7 @@ public class PegaEventoParaExecutar : MonoBehaviour
 
     private void Update()
     {
-        if (eventoSolicitado && Input.GetMouseButton(0))
+        if (eventoSolicitado)
         {
             if (!IsInvoking(nomeFuncao))
             {

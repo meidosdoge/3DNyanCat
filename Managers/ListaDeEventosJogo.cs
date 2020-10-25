@@ -16,6 +16,8 @@ public class ListaDeEventosJogo : MonoBehaviour
     private GameObject objetivoMovimenta;
     public bool movimenta = false;
 
+    public bool executouCutscene = false;
+
     //adicione eventos aqui
 
     public void PrimeiroAndar ()
@@ -33,6 +35,26 @@ public class ListaDeEventosJogo : MonoBehaviour
     {
         //leva pro terreo
         StartCoroutine(Elevador(1f, elevadorApto, elevadorTerreo, objTerreo, objPrimeiroAndar, terreoSpawn));
+    }
+
+    public void CestaApto()
+    {
+        if(!executouCutscene)
+        {
+            DesativaMovPlayer.desMov.DesativaMov();
+
+
+            executouCutscene = true;
+            DesativaMovPlayer.desMov.AtivaMov();
+        }
+    }
+    public void CestaTerreo()
+    {
+        DesativaMovPlayer.desMov.DesativaMov();
+
+        
+
+        DesativaMovPlayer.desMov.AtivaMov();
     }
 
 
