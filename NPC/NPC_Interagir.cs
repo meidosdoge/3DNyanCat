@@ -29,37 +29,42 @@ public class NPC_Interagir : MonoBehaviour
         navMesh.speed = 2;
     }
 
-    void ControlaTV(GameObject direcionarNPC)
+    void ControlaTV(GameObject direcao)
     {
         if(!pegandoControle)
         {
+            StartCoroutine(WaitFor(1.2f, direcao));  
             telaTV.SetActive(true);
             SoundManager.sound.SomTV(true);
-            transform.LookAt(direcionarNPC.transform.position);
             pegandoControle = true;
         }
         else if (pegandoControle)
         {
+            StartCoroutine(WaitFor(1.2f, direcao));  
             telaTV.SetActive(false);
             SoundManager.sound.SomTV(false);
             pegandoControle = false;
         }
     }
 
-    void UsaPia(GameObject direcionarNPC)
+    void UsaPia(GameObject direcao)
     {
+        StartCoroutine(WaitFor(1.2f, direcao));  
         SoundManager.sound.SomPia();
-        transform.LookAt(direcionarNPC.transform.position);
     }
 
-    void Cadeira(GameObject direcionarNPC)
+    void Cadeira(GameObject direcao)
     {
+        StartCoroutine(WaitFor(1.2f, direcao));   
+    }
+
+    public IEnumerator WaitFor(float waitTime, GameObject direcionarNPC)
+    {
+        yield return new WaitForSeconds(waitTime);
         transform.LookAt(direcionarNPC.transform.position);
     }
 
     /*
-    Esperar um segundo e aí sim virar
-    
     se chega perto do player, reseta o nível
 
     Ligar coisas do tutorial, desligar mov do hitchcock
