@@ -97,6 +97,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         //move o player pro elevador, desativa o ambiente anterior
+        movimenta = false;
         player.transform.position = elevadorSaida.transform.position;
         player.transform.LookAt(spawnPoint.transform.position);
         objDesativar.SetActive(false);

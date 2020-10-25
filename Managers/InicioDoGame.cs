@@ -11,6 +11,8 @@ public class InicioDoGame : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 45;
+
         Time.timeScale = 1;
         CanvasManager.jogoPausado = false;
 

@@ -60,8 +60,6 @@ public class NPC_Interagir : MonoBehaviour
     /*
     Esperar um segundo e aí sim virar
     
-    Set framerate for build
-    
     se chega perto do player, reseta o nível
 
     cutscene
