@@ -25,6 +25,9 @@ public class ScriptTutorial : MonoBehaviour
         parteTutorial = 1;
         limite1.SetActive(true);
         limite2.SetActive(true);
+
+        if(terminouTutorial)
+            FechaTutorial();
     }
 
     // Update is called once per frame
@@ -100,14 +103,20 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial >= 9)
         {
-            indicaCesta.SetActive(true);
-            NPC.GetComponent<NPC_Interagir>().enabled = true;
-            NPC.GetComponent<BehaviorExecutor>().enabled = true;
-            terminouTutorial = true;
-            this.gameObject.SetActive(false);
+            FechaTutorial();
         }
     }
 
+    public void FechaTutorial()
+    {
+        indicaCesta.SetActive(true);
+        NPC.GetComponent<NPC_Interagir>().enabled = true;
+        NPC.GetComponent<BehaviorExecutor>().enabled = true;
+        terminouTutorial = true;
+        limite1.SetActive(false);
+        limite2.SetActive(false);
+        this.gameObject.SetActive(false);
+    }
 
     public void ChamaFala(int numeroDaFala)
     {
