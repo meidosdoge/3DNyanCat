@@ -15,6 +15,8 @@ public class ScriptTutorial : MonoBehaviour
     // ativa NPC que segue
     public GameObject NPC;
 
+    public static bool terminouTutorial;
+
 
 
     // Start is called before the first frame update
@@ -101,6 +103,7 @@ public class ScriptTutorial : MonoBehaviour
             indicaCesta.SetActive(true);
             NPC.GetComponent<NPC_Interagir>().enabled = true;
             NPC.GetComponent<BehaviorExecutor>().enabled = true;
+            terminouTutorial = true;
             this.gameObject.SetActive(false);
         }
     }

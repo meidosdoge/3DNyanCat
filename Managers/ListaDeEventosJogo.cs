@@ -21,7 +21,7 @@ public class ListaDeEventosJogo : MonoBehaviour
 
     [Header("Cesta")]
     //coisas da cesta
-    public bool executouCutscene = false;
+    public static bool executouCutscene;
     public GameObject sons;
     public GameObject cutVideo, cutUI;
     public GameObject cestaAp1, cestaCondo;

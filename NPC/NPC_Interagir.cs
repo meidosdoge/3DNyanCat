@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class NPC_Interagir : MonoBehaviour
 {
+    public GameObject player;
     public NavMeshAgent navMesh;
 
     //itens com que o npc interage
@@ -15,7 +17,16 @@ public class NPC_Interagir : MonoBehaviour
 
     public bool perseguindo = false; //tá correndo atrás do personagem
     public bool pegandoControle = false; //pegou o controle da tv
+    public Animator fade;
 
+    void Update()
+    {
+        if(Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z),
+        new Vector2 (player.transform.position.x, player.transform.position.z)) < 1)
+        {
+            StartCoroutine(Reseta(1f));
+        }
+    }
 
     void Perseguir()
     {
@@ -64,10 +75,15 @@ public class NPC_Interagir : MonoBehaviour
         transform.LookAt(direcionarNPC.transform.position);
     }
 
-    /*
-    se chega perto do player, reseta o nível
+    public IEnumerator Reseta(float waitTime)
+    {
+        SoundManager.sound.DogLate();
+        DesativaMovPlayer.desMov.DesativaMov();
 
-    Ligar coisas do tutorial, desligar mov do hitchcock
-    Fazer uma build
-    */
+        yield return new WaitForSeconds(waitTime);
+
+        fade.SetBool("Fade", true);
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(1);
+    }
 }
