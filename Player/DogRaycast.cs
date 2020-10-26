@@ -80,16 +80,17 @@ public class DogRaycast : MonoBehaviour
                     //pros outros scripts de morder e cheirar
                     objSendoObservado = whatIHit.transform.gameObject;
                 }
-                else if (whatIHit.transform.CompareTag("EventosJogador"))
+                else if (whatIHit.transform.CompareTag("EventosJogador") && Input.GetMouseButtonDown(0))
                 {
                     whatIHit.transform.GetComponent<PegaEventoParaExecutar>().eventoSolicitado = true;
                 }
+                /*to comentando esse pedaço porque não tem diágolo com clique no npc atualmente
                 else if(whatIHit.transform.CompareTag("NPC") && Input.GetMouseButtonDown(0))
                 {
                     whatIHit.transform.GetComponent<ChamaFalaNPC>().ligarTexto = true;
                     if (MudarCameras.camNoPlayer)
                         whatIHit.transform.GetComponent<ChamaFalaNPC>().reinteragir += 1;
-                }
+                }*/
                 else if (whatIHit.transform.CompareTag("Cenário") || whatIHit.transform.CompareTag ("Untagged"))
                 {
                     bocaDog = false;
