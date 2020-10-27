@@ -17,6 +17,8 @@ public class ScriptTutorial : MonoBehaviour
 
     public static bool terminouTutorial;
 
+    bool pularTutorial;
+
 
 
     // Start is called before the first frame update
@@ -33,16 +35,27 @@ public class ScriptTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.P)) pularTutorial = true;
+
         if (parteTutorial == 1)
         {
-            ChamaFala(0);
+            if (!pularTutorial)
+            {
+                ChamaFala(0);
+            }
+            else if (pularTutorial)
+            {
+                listaFalas[0].SetActive(false);
+                ProximoTutorial();
+            }
+                
         }
 
         else if (parteTutorial == 2)
         {
             limite1.SetActive(true);
             auxilioMorder.SetActive(true);
-            if (Morder.morderTutorial)
+            if (Morder.morderTutorial || pularTutorial)
             {
                 auxilioMorder.SetActive(false);
                 ProximoTutorial();
@@ -51,7 +64,14 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial == 3)
         {
-            ChamaFala(1);
+            if (!pularTutorial)
+                ChamaFala(1);
+
+            else if (pularTutorial)
+            {
+                listaFalas[1].SetActive(false);
+                ProximoTutorial();
+            }
             //fiz isso pra que mesmo se o jogador ja tiver cheirado, ele deva cheirar novamente
             Farejar.cheirarTutorial = false;
         }
@@ -59,7 +79,7 @@ public class ScriptTutorial : MonoBehaviour
         else if (parteTutorial == 4)
         {
             auxilioCheirar.SetActive(true);
-            if (Farejar.cheirarTutorial)
+            if (Farejar.cheirarTutorial || pularTutorial)
             {
                 auxilioCheirar.SetActive(false);
                 ProximoTutorial();
@@ -69,18 +89,32 @@ public class ScriptTutorial : MonoBehaviour
         else if (parteTutorial == 5)
         {
             setaBarraCheiro.SetActive(true);
-            ChamaFala(2);
+            if (!pularTutorial)
+                ChamaFala(2);
+
+            else if (pularTutorial)
+            {
+                listaFalas[2].SetActive(false);
+                ProximoTutorial();
+            }
         }
 
         else if (parteTutorial == 6)
         {
             
-            if (Farejar.desativarCheiroTutorial == true)
+            if (Farejar.desativarCheiroTutorial == true || pularTutorial)
             {
                 setaBarraCheiro.SetActive(false);
-                ChamaFala(3);
                 limite1.SetActive(false);
                 limite2.SetActive(true);
+                if (!pularTutorial)
+                    ChamaFala(3);
+
+                else if (pularTutorial)
+                {
+                    listaFalas[3].SetActive(false);
+                    ProximoTutorial();
+                }
             }
             
         }
@@ -88,7 +122,7 @@ public class ScriptTutorial : MonoBehaviour
         else if (parteTutorial == 7)
         {
             auxilioJuntar.SetActive(true);
-            if (ControlaParticula.fusaoTutorial)
+            if (ControlaParticula.fusaoTutorial || pularTutorial)
             {
                 ProximoTutorial();
                 auxilioJuntar.SetActive(false);
@@ -97,7 +131,15 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial == 8)
         {
-            ChamaFala(4);
+            if (!pularTutorial)
+                ChamaFala(4);
+
+            else if (pularTutorial)
+            {
+                ListaDeEventosJogo.executouCutscene = true;
+                listaFalas[4].SetActive(false);
+                ProximoTutorial();
+            }
             limite2.SetActive(false);
         }
 
@@ -116,6 +158,7 @@ public class ScriptTutorial : MonoBehaviour
         limite1.SetActive(false);
         limite2.SetActive(false);
         this.gameObject.SetActive(false);
+        DesativaMovPlayer.desMov.AtivaMov();
     }
 
     public void ChamaFala(int numeroDaFala)
