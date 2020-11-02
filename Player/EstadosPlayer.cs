@@ -10,21 +10,32 @@ public class EstadosPlayer : MonoBehaviour
     public Animator estadosAnimacao;
 
     //possibilidades de estado
-    //movimentação: idle, andando, correndo
+    //movimentação: idle, andando, mordendo, cheirando
     //ação da cara: inativo, cheirando, mordendo
 
+    private void OnEnable()
+    {
+        DesativaMovPlayer.desMov.AtivaMov();
+    }
 
     public static bool gerandoParticula = false;
     //ativa quando duas partículas estão colidindo
 
     void Update()
     {
+        //altera o estado da animação dependendo da ação do player
         switch (estadoMovimentacao){
             case "idle":
-                estadosAnimacao.SetBool("Andando", false);
+                estadosAnimacao.SetInteger("EstadoPlayer", 0);
                 break;
             case "andando":
-                estadosAnimacao.SetBool("Andando", true);
+                estadosAnimacao.SetInteger("EstadoPlayer", 1);
+                break;
+            case "mordendo":
+                estadosAnimacao.SetInteger("EstadoPlayer", 2);
+                break;
+            case "cheirando":
+                estadosAnimacao.SetInteger("EstadoPlayer", 3);
                 break;
         }
     }

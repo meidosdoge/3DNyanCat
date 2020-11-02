@@ -28,8 +28,11 @@ public class ScriptTutorial : MonoBehaviour
         limite1.SetActive(true);
         limite2.SetActive(true);
 
-        if(terminouTutorial)
+        if (terminouTutorial)
+        {
             FechaTutorial();
+            parteTutorial = 9;
+        }
     }
 
     // Update is called once per frame

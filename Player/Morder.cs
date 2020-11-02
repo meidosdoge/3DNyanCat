@@ -53,6 +53,8 @@ public class Morder : MonoBehaviour
 
     public void PegaItem()
     {
+        //ativa a animação de morder
+        EstadosPlayer.estadoMovimentacao = "mordendo";
         objetoNaBoca = DogRaycast.objSendoObservado;
         EstadosPlayer.estadoMordendo = true;
         carregandoItem = true;
