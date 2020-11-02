@@ -140,11 +140,10 @@ public class ListaDeEventosJogo : MonoBehaviour
         animElevadorTerreo.SetBool("AbreElevador", false);
         yield return new WaitForSeconds(waitTime);
 
-        //move o player pro elevador, desativa o ambiente anterior
+        //move o player pro elevador
         movimenta = false;
         player.transform.position = elevadorSaida.transform.position;
         player.transform.LookAt(spawnPoint.transform.position);
-        objDesativar.SetActive(false);
 
         //abre o elevador
         animElevadorTerreo.SetBool("AbreElevador", true);
@@ -166,8 +165,9 @@ public class ListaDeEventosJogo : MonoBehaviour
         SoundManager.sound.Ambiente();
         yield return new WaitForSeconds(1.5f);        
 
-        //libera o player da "cutscene"
+        //libera o player da "cutscene", desativa o ambiente anterior
         DesativaMovPlayer.desMov.AtivaMov();
+        objDesativar.SetActive(false);
     }
 
     void MoveToPoint(GameObject finalPoint)
