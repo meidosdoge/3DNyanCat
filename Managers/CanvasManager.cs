@@ -5,14 +5,15 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     public static bool jogoPausado = false;
-    public GameObject pauseMenu, cheatsMenu, controlesMenu;
+    public GameObject pauseMenu, cheatsMenu, controlesMenu, menuSuspeitos;
 
     void Update()
     {
         //Ativa e desativa o menu de pausa
-        if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado == false)
+        if((Input.GetKeyDown(KeyCode.Escape) || ListaDeEventosJogo.pausar) && jogoPausado == false)
         {
-            pauseMenu.SetActive(true);
+            if (!ListaDeEventosJogo.pausar)
+                pauseMenu.SetActive(true);
             jogoPausado = true;
             Time.timeScale = 0;
 
@@ -27,16 +28,23 @@ public class CanvasManager : MonoBehaviour
 
         else if(Input.GetKeyDown(KeyCode.Escape) && jogoPausado)
         {
-            DisablePauseMenu();
+            //desativa ou o menu, ou a tela de suspeitos, dependendo de em qual o jogador está
+            DisablePauseMenu();                
         }
     }
 
     public void DisablePauseMenu()
     {
         DesativaMovPlayer.desMov.AtivaMov();
-        pauseMenu.SetActive(false);
-        cheatsMenu.SetActive(false);
-        controlesMenu.SetActive(false);
+        if (!ListaDeEventosJogo.pausar)
+        {
+            pauseMenu.SetActive(false);
+            cheatsMenu.SetActive(false);
+            controlesMenu.SetActive(false);
+        }
+        else if (ListaDeEventosJogo.pausar)
+            menuSuspeitos.SetActive(false);
+
         jogoPausado = false;
         SoundManager.sound.Ambiente();
 
