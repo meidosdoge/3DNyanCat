@@ -64,6 +64,8 @@ public class Farejar : MonoBehaviour
 
     public void VisaoOn()
     {
+        //ativa a animação de cheirar
+        EstadosPlayer.estadoMovimentacao = "cheirando";
         ppPretoBranco.SetActive(true);
         Time.timeScale = cameraLenta;
         EstadosPlayer.estadoCheirando = true;

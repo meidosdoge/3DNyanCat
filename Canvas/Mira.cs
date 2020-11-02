@@ -44,7 +44,7 @@ public class Mira : MonoBehaviour
 
         //verifica em qual situação o jogador está e muda o cursor de acordo,
         //utilizando as variáveis que vem do raycast
-        if (DogRaycast.distDogObj == 1)
+        if (DogRaycast.distDogObj == 1 || DogRaycast.atingindoNada)
         {
             //imagem cursor longa distancia
             spriteMira.sprite = cursorNormal;

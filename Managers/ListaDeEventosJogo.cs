@@ -25,6 +25,11 @@ public class ListaDeEventosJogo : MonoBehaviour
     public GameObject sons;
     public GameObject cutVideo, cutUI;
     public GameObject cestaAp1, cestaCondo;
+
+    [Header("Suspeitos")]
+    public GameObject menuSuspeitos;
+    //var pra fazer o jogo pausar, igual quando se entra no menu normal
+    public static bool pausar;
     
     //adicione eventos aqui
 
@@ -182,5 +187,12 @@ public class ListaDeEventosJogo : MonoBehaviour
             EstadosPlayer.estadoMovimentacao = "idle";
             movimenta = false;
         }
+    }
+
+    //tentativa de evento pra chamar o canvas que o player vai decidir o suspeito
+    public void ChamaCanvasSuspeitos()
+    {
+        menuSuspeitos.SetActive(true);
+        pausar = true;
     }
 }

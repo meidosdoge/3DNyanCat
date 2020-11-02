@@ -7,7 +7,7 @@ public class DogRaycast : MonoBehaviour
     //condição de distância para verificar se ele está perto o suficiente para interagir
     public static int distDogObj; 
     //variaveis para avisar os scripts de quando pode morder ou cheirar
-    public static bool bocaDog, fucinhoDog; 
+    public static bool bocaDog, fucinhoDog, atingindoNada; 
     public static GameObject objSendoObservado;
     //layer do player pro raycast ignorar
     public LayerMask ignoraRaycast;
@@ -102,6 +102,8 @@ public class DogRaycast : MonoBehaviour
         }
         else
         {
+            //cria uma variavel que indica se o raycast está atingindo alguma coisa
+            atingindoNada = true;
             bocaDog = false;
             fucinhoDog = false;
 
