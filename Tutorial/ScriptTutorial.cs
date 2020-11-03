@@ -150,6 +150,7 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial >= 9)
         {
+            caixaDeFundo.SetActive(false);
             FechaTutorial();
         }
     }
