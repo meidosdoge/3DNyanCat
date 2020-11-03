@@ -11,7 +11,7 @@ public class ScriptTutorial : MonoBehaviour
     //hitboxes do tutorial
     public GameObject limite1, limite2;
     //caixas de texto para lembrar o jogador do que se tem que fazer
-    public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro, indicaCesta;
+    public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro, indicaCesta, caixaDeFundo;
     // ativa NPC que segue
     public GameObject NPC;
 
@@ -92,6 +92,7 @@ public class ScriptTutorial : MonoBehaviour
         else if (parteTutorial == 5)
         {
             setaBarraCheiro.SetActive(true);
+            caixaDeFundo.SetActive(false);
             if (!pularTutorial)
                 ChamaFala(2);
 
@@ -108,6 +109,7 @@ public class ScriptTutorial : MonoBehaviour
             if (Farejar.desativarCheiroTutorial == true || pularTutorial)
             {
                 setaBarraCheiro.SetActive(false);
+                caixaDeFundo.SetActive(true);
                 limite1.SetActive(false);
                 limite2.SetActive(true);
                 if (!pularTutorial)
