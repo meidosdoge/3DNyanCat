@@ -7,24 +7,30 @@ public class ListaDeEventosJogo : MonoBehaviour
     //todos os objetos necessarios são colocados aqui
     [Header("Posições na cena")]
     public GameObject cameraAp1;
-    public GameObject player, primeiroAndarSpawn, terreoSpawn;
-    public GameObject objPrimeiroAndar, objTerreo;
+    public GameObject player, apto2Spawn, apto3Spawn, apto4Spawn;
+    public GameObject terreoSpawnDo2, terreoSpawnDo3, terreoSpawnDo4;
+    public GameObject objPrimeiroAndar, objTerreo, apto2, apto3, apto4;
     
     [Header("Elevador evento")]
     public Animator fade;
-    public GameObject elevadorApto, elevadorTerreo;
-    public Animator animElevadorApto, animElevadorTerreo;
+    public GameObject elevadorApto2, elevadorApto3, elevadorApto4;
+    public GameObject elevadorTerreoPro2, elevadorTerreoPro3, elevadorTerreoPro4;
+
+    [Header("Animators")]
+    public Animator animElevador2;
+    public Animator animElevador3, animElevador4;
+    public Animator animTerreoPro2, animTerreoPro3, animTerreoPro4;
     
     private GameObject objetivoMovimenta;
     public bool movimenta = false;
 
 
-    [Header("Cesta")]
     //coisas da cesta
-    public static bool executouCutscene;
+    [Header("Cesta")]    
     public GameObject sons;
     public GameObject cutVideo, cutUI;
     public GameObject cestaAp1, cestaCondo;
+    public static bool executouCutscene;
 
     [Header("Suspeitos")]
     public GameObject menuSuspeitos;
@@ -33,21 +39,45 @@ public class ListaDeEventosJogo : MonoBehaviour
     
     //adicione eventos aqui
 
-    public void PrimeiroAndar ()
+    public void Apto2()
     {
-        //leva pro primeiroAndar
+        //leva pro apto2
 
         //coroutine pra abrir o elevador e fazer a transição, leva como argumentos:
-        //tempo, ponto central do elevador atual, ponto central do elevador destino, cenário ligando, cenário desligando, spawn
-        StartCoroutine(Elevador(1f, elevadorTerreo, elevadorApto, objPrimeiroAndar, objTerreo, primeiroAndarSpawn));
-        
-        cameraAp1.SetActive(true);
+        //tempo, ponto central do elevador atual, ponto central do elevador destino, cenário ligando, cenário desligando, spawn, anim do elevador terreo e anim do elevador apto
+        StartCoroutine(Elevador(1f, elevadorTerreoPro2, elevadorApto2, apto2, objTerreo, apto2Spawn, animTerreoPro2, animElevador2));
     }
 
-    public void Terreo()
+    public void TerreoDo2()
     {
         //leva pro terreo
-        StartCoroutine(Elevador(1f, elevadorApto, elevadorTerreo, objTerreo, objPrimeiroAndar, terreoSpawn));
+        StartCoroutine(Elevador(1f, elevadorApto2, elevadorTerreoPro2, objTerreo, apto2, terreoSpawnDo2, animTerreoPro2, animElevador2));
+    }
+
+    public void Apto3()
+    {
+        //leva pro apto3
+
+        StartCoroutine(Elevador(1f, elevadorTerreoPro3, elevadorApto3, apto3, objTerreo, apto3Spawn, animTerreoPro3, animElevador3));
+    }
+
+    public void TerreoDo3()
+    {
+        //leva pro terreo
+        StartCoroutine(Elevador(1f, elevadorApto3, elevadorTerreoPro3, objTerreo, apto3, terreoSpawnDo3, animTerreoPro3, animElevador3));
+    }
+
+    public void Apto4()
+    {
+        //leva pro apto3
+
+        StartCoroutine(Elevador(1f, elevadorTerreoPro4, elevadorApto4, apto4, objTerreo, apto4Spawn, animTerreoPro4, animElevador4));
+    }
+
+    public void TerreoDo4()
+    {
+        //leva pro terreo
+        StartCoroutine(Elevador(1f, elevadorApto4, elevadorTerreoPro4, objTerreo, apto4, terreoSpawnDo4, animTerreoPro4, animElevador4));
     }
 
     //chama funções da cesta
@@ -112,7 +142,8 @@ public class ListaDeEventosJogo : MonoBehaviour
     
     //entra e sai do elevador
     public IEnumerator Elevador(float waitTime, GameObject elevadorEntrada, GameObject elevadorSaida,
-    GameObject objAtivar, GameObject objDesativar, GameObject spawnPoint)
+    GameObject objAtivar, GameObject objDesativar, GameObject spawnPoint, 
+    Animator animElevadorTerreo, Animator animElevadorApto)
     {
         //desativa skills e movimento, vira o player pro elevador
         PegaEventoParaExecutar.desativaCheirar();
