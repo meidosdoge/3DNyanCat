@@ -6,11 +6,24 @@ public class Cheats : MonoBehaviour
 {
     public GameObject player, mainCanvas;
     public GameObject apto1, terreo;
+    public GameObject apto2, apto3, apto4;
     private CanvasManager cvm;
 
     void Awake()
     {
         cvm = mainCanvas.GetComponent<CanvasManager>();    
+    }
+
+    public void PulaTutorial()
+    {
+        ScriptTutorial.pularTutorial = true;
+        //desativa o menu de pause
+        cvm.DisablePauseMenu();
+    }
+
+    public void EscolheInimigo()
+    {
+        //cheat futuro pra levar pra cena final de vitória do jogo
     }
 
     public void AtivaCheiros(GameObject obj)
@@ -24,7 +37,8 @@ public class Cheats : MonoBehaviour
         }
     }
 
-    public void Teletransporte(GameObject spawn)
+    //tive que fazer um por um da forma burra, porque função pra botão só pode ter um objeto na chamada
+    public void TeletransporteApto1(GameObject spawn)
     {
         if(EstadosPlayer.estadoCheirando)
             Farejar.fareja.VisaoOff();
@@ -33,13 +47,89 @@ public class Cheats : MonoBehaviour
             Morder.morde.SoltaItem();
 
         //liga o outro ambiente pra garantir que não vai ter abismo
-        if(apto1.activeInHierarchy)
-            terreo.SetActive(true);
-        else if(terreo.activeInHierarchy)
-            apto1.SetActive(true);
+        apto1.SetActive(true);
 
         //move o player pro spawn point
         player.transform.position = spawn.transform.position;
+
+        //desativa ambientes onde não tá
+        terreo.SetActive(false);
+        apto2.SetActive(false);
+        apto3.SetActive(false);
+        apto4.SetActive(false);
+
+        //desativa o menu de pause
+        cvm.DisablePauseMenu();
+    }
+
+    public void TeletransporteApto2(GameObject spawn)
+    {
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
+        //liga o outro ambiente pra garantir que não vai ter abismo
+        apto2.SetActive(true);
+
+        //move o player pro spawn point
+        player.transform.position = spawn.transform.position;
+
+        //desativa ambientes onde não tá
+        terreo.SetActive(false);
+        apto1.SetActive(false);
+        apto3.SetActive(false);
+        apto4.SetActive(false);
+
+        //desativa o menu de pause
+        cvm.DisablePauseMenu();
+    }
+
+    public void TeletransporteApto3(GameObject spawn)
+    {
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
+        //liga o outro ambiente pra garantir que não vai ter abismo
+        apto3.SetActive(true);
+
+        //move o player pro spawn point
+        player.transform.position = spawn.transform.position;
+
+        //desativa ambientes onde não tá
+        terreo.SetActive(false);
+        apto1.SetActive(false);
+        apto2.SetActive(false);
+        apto4.SetActive(false);
+
+        //desativa o menu de pause
+        cvm.DisablePauseMenu();
+    }
+
+    public void TeletransporteApto4(GameObject spawn)
+    {
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
+        //liga o outro ambiente pra garantir que não vai ter abismo
+        apto4.SetActive(true);
+
+        //move o player pro spawn point
+        player.transform.position = spawn.transform.position;
+
+        //desativa ambientes onde não tá
+        terreo.SetActive(false);
+        apto1.SetActive(false);
+        apto2.SetActive(false);
+        apto3.SetActive(false);
+
         //desativa o menu de pause
         cvm.DisablePauseMenu();
     }

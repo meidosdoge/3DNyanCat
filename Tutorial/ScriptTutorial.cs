@@ -17,7 +17,7 @@ public class ScriptTutorial : MonoBehaviour
 
     public static bool terminouTutorial;
 
-    bool pularTutorial;
+    public static bool pularTutorial;
 
 
 
@@ -158,7 +158,6 @@ public class ScriptTutorial : MonoBehaviour
     public void FechaTutorial()
     {
         indicaCesta.SetActive(true);
-        NPC.GetComponent<NPC_Interagir>().enabled = true;
         NPC.GetComponent<BehaviorExecutor>().enabled = true;
         terminouTutorial = true;
         limite1.SetActive(false);
