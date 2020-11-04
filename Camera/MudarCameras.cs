@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MudarCameras : MonoBehaviour
 {
+    [SerializeField]
     //pega camera atual para fazer a verificação se o player está na visão dela
     Camera camera;
     //referencias de objetos para realizar a transição das cameras e executar o que precisa
@@ -14,7 +15,7 @@ public class MudarCameras : MonoBehaviour
 
     private void Start()
     {
-        camera = this.GetComponent<Camera>();
+        camera = this.gameObject.GetComponent<Camera>();
     }
 
     void Update()
@@ -27,18 +28,20 @@ public class MudarCameras : MonoBehaviour
         //ações de acordo com o estado da visualização do player na camera
         if (onScreen)
         {
+            Cursor.lockState = CursorLockMode.None;
             cameraPlayer.SetActive(false);
             camNoPlayer = false;
             this.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().depth = 1;
-            this.GetComponent<Camera>().depth = 0;
+            camera.depth = 0;
         }
         else if (!onScreen)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             cameraPlayer.SetActive(true);
             camNoPlayer = true;
             this.gameObject.transform.GetChild(0).gameObject.GetComponent<Camera>().depth = -2;
-            this.GetComponent<Camera>().depth = -2;
+            camera.depth = -2;
             this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }

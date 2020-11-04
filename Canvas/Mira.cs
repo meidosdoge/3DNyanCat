@@ -23,14 +23,12 @@ public class Mira : MonoBehaviour
         {
             //coloca a imagem do canvas de volta no centro da tela
             GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-            Cursor.lockState = CursorLockMode.Locked;
         }
         else if (!MudarCameras.camNoPlayer)
         {
             //faz a imagem do cursor seguir o mouse
             Vector2 posCursor = Input.mousePosition;
             transform.position = posCursor;
-            Cursor.lockState = CursorLockMode.None;
         }
 
         //caso pause o jogo, ele ja faz a verificação por aq pra n conflitar
