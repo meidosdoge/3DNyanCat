@@ -32,6 +32,7 @@ public class ScriptTutorial : MonoBehaviour
         {
             FechaTutorial();
             parteTutorial = 9;
+            caixaDeFundo.SetActive(false);
         }
     }
 
