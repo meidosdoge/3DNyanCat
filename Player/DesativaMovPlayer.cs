@@ -13,7 +13,7 @@ public class DesativaMovPlayer : MonoBehaviour
     private DogRaycast dogRay;
     private PlayerMovement move;
 
-    void Start()
+    void OnEnable()
     {
         desMov = this;
 
