@@ -7,6 +7,11 @@ public class CanvasManager : MonoBehaviour
     public static bool jogoPausado = false;
     public GameObject pauseMenu, cheatsMenu, controlesMenu, menuSuspeitos;
 
+    private void OnEnable()
+    {
+        DisablePauseMenu();
+    }
+
     void Update()
     {
         //Ativa e desativa o menu de pausa
@@ -43,7 +48,10 @@ public class CanvasManager : MonoBehaviour
             controlesMenu.SetActive(false);
         }
         else if (ListaDeEventosJogo.pausar)
+        {
             menuSuspeitos.SetActive(false);
+            ListaDeEventosJogo.pausar = false;
+        }
 
         jogoPausado = false;
         SoundManager.sound.Ambiente();
