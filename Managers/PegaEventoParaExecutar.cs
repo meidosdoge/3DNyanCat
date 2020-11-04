@@ -13,7 +13,7 @@ public class PegaEventoParaExecutar : MonoBehaviour
     public string nomeFuncao;
     GameObject metodos;
 
-    private void Start()
+    private void OnEnable()
     {
         metodos = GameObject.Find("EventosTriggers");
     }

@@ -73,14 +73,12 @@ public class Falas : MonoBehaviour
         {
             DesativaMovPlayer.desMov.DesativaMov();
 
-            //chama som de fala
-            SoundManager.sound.VozNPC(true);
-
             //ação pra quando ele encontra um traço no arquivo de texto
             //que marca o inicio de outro paragrafo
             if (texto[i] == '-')
             {
                 correTempo = false;
+                SoundManager.sound.VozNPC(false);
 
                 //reseta a velocidade do texto, apaga o texto pra receber o proximo paragrafo
                 //e volta a correr o texto quando o jogador clicar
@@ -110,6 +108,9 @@ public class Falas : MonoBehaviour
 
                 //passa pra proxima letra
                 i++;
+
+                //chama som de fala
+                SoundManager.sound.VozNPC(true);
             }
                 
         }
@@ -125,6 +126,12 @@ public class Falas : MonoBehaviour
             DesativaMovPlayer.desMov.AtivaMov();
             acabouTexto = true;
 
+            SoundManager.sound.VozNPC(false);
+        }
+
+        else if(i >= texto.Length)
+        {
+            //desliga voz do npc se chegou no final do texto
             SoundManager.sound.VozNPC(false);
         }
     }

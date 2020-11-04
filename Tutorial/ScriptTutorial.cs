@@ -19,6 +19,8 @@ public class ScriptTutorial : MonoBehaviour
 
     public static bool pularTutorial;
 
+    bool completouPasso = false; //tocar som quando completa uma parte do tutorial
+
 
 
     // Start is called before the first frame update
@@ -63,11 +65,18 @@ public class ScriptTutorial : MonoBehaviour
             {
                 auxilioMorder.SetActive(false);
                 ProximoTutorial();
+                completouPasso = true;
             }
         }
 
         else if (parteTutorial == 3)
         {
+            if(completouPasso)
+            {
+                SoundManager.sound.TutorialStep();
+                completouPasso = false;
+            }
+            
             if (!pularTutorial)
                 ChamaFala(1);
 
@@ -87,11 +96,18 @@ public class ScriptTutorial : MonoBehaviour
             {
                 auxilioCheirar.SetActive(false);
                 ProximoTutorial();
+                completouPasso = true;
             }
         }
 
         else if (parteTutorial == 5)
         {
+            if(completouPasso)
+            {
+                SoundManager.sound.TutorialStep();
+                completouPasso = false;
+            }
+            
             setaBarraCheiro.SetActive(true);
             caixaDeFundo.SetActive(false);
             if (!pularTutorial)
@@ -158,6 +174,7 @@ public class ScriptTutorial : MonoBehaviour
 
     public void FechaTutorial()
     {
+        SoundManager.sound.TutorialComplete();
         indicaCesta.SetActive(true);
         NPC.GetComponent<BehaviorExecutor>().enabled = true;
         terminouTutorial = true;

@@ -19,6 +19,8 @@ public class NPC_Interagir : MonoBehaviour
     public bool pegandoControle = false; //pegou o controle da tv
     public Animator fade;
 
+    GameObject direcionarNPC;
+
     void Update()
     {
         if(Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z),
@@ -32,26 +34,37 @@ public class NPC_Interagir : MonoBehaviour
     {
         perseguindo = true;
         navMesh.speed = 4;
+        SoundManager.sound.CorreNPC(true);
     }
 
     void Andar()
     {
         perseguindo = false;
         navMesh.speed = 2;
+        SoundManager.sound.PassosNPC(true);
+    }
+
+    void Parar()
+    {
+        perseguindo = false;
+        navMesh.speed = 0;
+        SoundManager.sound.PassosNPC(false);
+        SoundManager.sound.CorreNPC(false);
+        transform.LookAt(direcionarNPC.transform.position);
     }
 
     void ControlaTV(GameObject direcao)
     {
         if(!pegandoControle)
         {
-            StartCoroutine(WaitFor(1.2f, direcao));  
+            direcionarNPC = direcao;
             telaTV.SetActive(true);
             SoundManager.sound.SomTV(true);
             pegandoControle = true;
         }
         else if (pegandoControle)
         {
-            StartCoroutine(WaitFor(1.2f, direcao));  
+            direcionarNPC = direcao;
             telaTV.SetActive(false);
             SoundManager.sound.SomTV(false);
             pegandoControle = false;
@@ -60,19 +73,13 @@ public class NPC_Interagir : MonoBehaviour
 
     void UsaPia(GameObject direcao)
     {
-        StartCoroutine(WaitFor(1.2f, direcao));  
+        direcionarNPC = direcao; 
         SoundManager.sound.SomPia();
     }
 
     void Cadeira(GameObject direcao)
     {
-        StartCoroutine(WaitFor(1.2f, direcao));   
-    }
-
-    public IEnumerator WaitFor(float waitTime, GameObject direcionarNPC)
-    {
-        yield return new WaitForSeconds(waitTime);
-        transform.LookAt(direcionarNPC.transform.position);
+        direcionarNPC = direcao;
     }
 
     public IEnumerator Reseta(float waitTime)
