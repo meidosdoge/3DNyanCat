@@ -105,6 +105,12 @@ public class ListaDeEventosJogo : MonoBehaviour
     {
         EstadosPlayer.estadoMovimentacao = "idle";
 
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
         //fade tapando câmera
         fade.SetBool("Fade", true);
         DesativaMovPlayer.desMov.DesativaMov();
@@ -146,7 +152,12 @@ public class ListaDeEventosJogo : MonoBehaviour
     Animator animElevadorTerreo, Animator animElevadorApto)
     {
         //desativa skills e movimento, vira o player pro elevador
-        PegaEventoParaExecutar.desativaCheirar();
+        if(EstadosPlayer.estadoCheirando)
+            Farejar.fareja.VisaoOff();
+        
+        if(EstadosPlayer.estadoMordendo)
+            Morder.morde.SoltaItem();
+
         DesativaMovPlayer.desMov.DesativaMov();
         player.transform.LookAt(elevadorEntrada.transform.position);
 

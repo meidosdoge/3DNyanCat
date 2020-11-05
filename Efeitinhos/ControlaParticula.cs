@@ -10,8 +10,9 @@ public class ControlaParticula : MonoBehaviour
     private GameObject particle; //objeto com o emitter
     private ParticleSystem parSys; //referência pro particle system
     
-    public GameObject partPool; //partícula na cena que vai modificar
+    public GameObject partPool, partController; //partícula na cena que vai modificar
     private ParticleSystem partPoolSys; //referência pro particle system do pool
+    private ParticleArray partArrayControl;
     
     private Vector3 collidePosition; //guarda a posição de onde colidiu
 
@@ -26,8 +27,10 @@ public class ControlaParticula : MonoBehaviour
         particle = transform.GetChild(0).gameObject; //pega a partícula dentro do obj
         parSys = particle.GetComponent<ParticleSystem>(); //referência do particlesystem
 
-        partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
+        //partPool = GameObject.Find("PartMistura"); //mesmas referências mas pro pool
         partPoolSys = partPool.GetComponent<ParticleSystem>();
+
+        partArrayControl = partController.GetComponent<ParticleArray>();
 
         particle.SetActive(false);        
     }
@@ -58,7 +61,7 @@ public class ControlaParticula : MonoBehaviour
             partPool.SetActive(false);
 
             EstadosPlayer.gerandoParticula = false;
-            ParticleArray.settou1 = false;
+            partArrayControl.settou1 = false;
             SoundManager.sound.MisturaCheiro(false);
         }
     }
@@ -82,7 +85,7 @@ public class ControlaParticula : MonoBehaviour
             //muda a sprite
             if(!addedSprite)
             {
-                mixTexAnim.SetSprite(0, ParticleArray.partArray.chosenSprite); //usa a sprite escolhida no script particle array
+                mixTexAnim.SetSprite(0, partArrayControl.chosenSprite); //usa a sprite escolhida no script particle array
                 addedSprite = true;
 
                 SoundManager.sound.MisturaCheiro(true);
@@ -98,7 +101,7 @@ public class ControlaParticula : MonoBehaviour
             collidePosition = Vector3.zero; //AMÉM ANDRÉ :goodjob:
             partPool.SetActive(false);  //desativa a partícula de mistura na cena
             addedSprite = false; //limpa a sprite 
-            ParticleArray.partArray.settouSprite = false;
+            partArrayControl.settouSprite = false;
 
             SoundManager.sound.MisturaCheiro(false);
         }
@@ -135,16 +138,16 @@ public class ControlaParticula : MonoBehaviour
         
         if(!EstadosPlayer.gerandoParticula)
         {
-            if (!ParticleArray.settou1) 
+            if (!partArrayControl.settou1) 
             {
                 //pega o número da primeira partícula
-                ParticleArray.partArray.currentNum1 = texAnim.GetSprite(0).name;
-                ParticleArray.settou1 = true;
+                partArrayControl.currentNum1 = texAnim.GetSprite(0).name;
+                partArrayControl.settou1 = true;
             }
             else
             {
                 //pega o número da segunda partícula
-                ParticleArray.partArray.currentNum2 = texAnim.GetSprite(0).name;
+                partArrayControl.currentNum2 = texAnim.GetSprite(0).name;
                 
                 //liga o gerador de partícula e pega a posição da colisão
                 EstadosPlayer.gerandoParticula = true;
@@ -155,6 +158,6 @@ public class ControlaParticula : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         EstadosPlayer.gerandoParticula = false;
-        ParticleArray.settou1 = false;
+        partArrayControl.settou1 = false;
     }
 }
