@@ -8,8 +8,6 @@ public class ScriptTutorial : MonoBehaviour
     int parteTutorial;
     //lista de falas da vovózinha cuti cuti
     public GameObject[] listaFalas;
-    //hitboxes do tutorial
-    public GameObject limite1, limite2;
     //caixas de texto para lembrar o jogador do que se tem que fazer
     public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro, indicaCesta, caixaDeFundo;
     // ativa NPC que segue
@@ -27,8 +25,6 @@ public class ScriptTutorial : MonoBehaviour
     void Start()
     {
         parteTutorial = 1;
-        limite1.SetActive(true);
-        limite2.SetActive(true);
 
         if (terminouTutorial)
         {
@@ -59,7 +55,6 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial == 2)
         {
-            limite1.SetActive(true);
             auxilioMorder.SetActive(true);
             if (Morder.morderTutorial || pularTutorial)
             {
@@ -127,8 +122,6 @@ public class ScriptTutorial : MonoBehaviour
             {
                 setaBarraCheiro.SetActive(false);
                 caixaDeFundo.SetActive(true);
-                limite1.SetActive(false);
-                limite2.SetActive(true);
                 if (!pularTutorial)
                     ChamaFala(3);
 
@@ -162,7 +155,6 @@ public class ScriptTutorial : MonoBehaviour
                 listaFalas[4].SetActive(false);
                 ProximoTutorial();
             }
-            limite2.SetActive(false);
         }
 
         else if (parteTutorial >= 9)
@@ -178,8 +170,6 @@ public class ScriptTutorial : MonoBehaviour
         indicaCesta.SetActive(true);
         NPC.GetComponent<BehaviorExecutor>().enabled = true;
         terminouTutorial = true;
-        limite1.SetActive(false);
-        limite2.SetActive(false);
         this.gameObject.SetActive(false);
         DesativaMovPlayer.desMov.AtivaMov();
     }

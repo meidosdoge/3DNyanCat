@@ -21,6 +21,8 @@ public class DesativaMovPlayer : MonoBehaviour
         dogRay = mainCam.GetComponent<DogRaycast>();
         move = player.GetComponent<PlayerMovement>();
         playerController = player.GetComponent<CharacterController>();
+
+        Cursor.visible = false;
     }
 
     public void AtivaMov()
@@ -45,9 +47,9 @@ public class DesativaMovPlayer : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    /*public void DesativaCursor()
+    public void DesativaCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }*/
+    }
 }

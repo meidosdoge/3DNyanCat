@@ -82,6 +82,11 @@ public class NPC_Interagir : MonoBehaviour
         direcionarNPC = direcao;
     }
 
+    void FazNada(GameObject direcao)
+    {
+        direcionarNPC = direcao;
+    }
+
     public IEnumerator Reseta(float waitTime)
     {
         SoundManager.sound.DogLate();

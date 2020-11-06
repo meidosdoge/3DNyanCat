@@ -142,6 +142,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         fade.SetBool("Fade", false);
         
         yield return new WaitForSeconds(waitTime);
+        EstadosPlayer.estadoMovimentacao = "idle";
         DesativaMovPlayer.desMov.AtivaMov();
         objDesativar.SetActive(false);
     }
@@ -159,6 +160,7 @@ public class ListaDeEventosJogo : MonoBehaviour
             Morder.morde.SoltaItem();
 
         DesativaMovPlayer.desMov.DesativaMov();
+        EstadosPlayer.estadoMovimentacao = "idle";
         player.transform.LookAt(elevadorEntrada.transform.position);
 
         //liga o próximo ambiente e abre os elevadores
@@ -208,6 +210,7 @@ public class ListaDeEventosJogo : MonoBehaviour
         yield return new WaitForSeconds(1.5f);        
 
         //libera o player da "cutscene", desativa o ambiente anterior
+        EstadosPlayer.estadoMovimentacao = "idle";
         DesativaMovPlayer.desMov.AtivaMov();
         objDesativar.SetActive(false);
     }
