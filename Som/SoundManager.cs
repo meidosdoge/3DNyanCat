@@ -30,6 +30,11 @@ public class SoundManager : MonoBehaviour
     public GameObject npcPassos;
     public GameObject npcCorre;
 
+    [Header("Eventos")]
+    public GameObject tutorialStep;
+    public GameObject tutorialComplete;
+    public GameObject culpadoErrado;
+    public GameObject culpadoCerto;
 
     //////////sons do ambiente
     public void Ambiente()
@@ -145,9 +150,22 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PassosNPC(bool correndo)
+    public void PassosNPC(bool andando)
     {
-        //se o npc tá perseguindo
+        //se o npc tá andando
+        if(andando)
+        {
+            npcCorre.SetActive(false);
+            npcPassos.SetActive(true);
+        }
+        else
+        {
+            npcPassos.SetActive(false);
+        }
+    }
+    public void CorreNPC(bool correndo)
+    {
+        //se o npc tá andando
         if(correndo)
         {
             npcCorre.SetActive(true);
@@ -156,8 +174,25 @@ public class SoundManager : MonoBehaviour
         else
         {
             npcCorre.SetActive(false);
-            npcPassos.SetActive(true);
         }
+    }
+
+    ///////////////sons eventos
+    public void TutorialStep()
+    {
+        tutorialStep.SetActive(true);
+    }
+    public void TutorialComplete()
+    {
+        tutorialComplete.SetActive(true);
+    }
+    public void EscolheInimigoErrado()
+    {
+        culpadoErrado.SetActive(true);
+    }
+    public void EscolheInimigoCerto()
+    {
+        culpadoCerto.SetActive(true);
     }
 
 

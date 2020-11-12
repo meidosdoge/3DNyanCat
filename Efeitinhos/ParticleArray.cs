@@ -13,7 +13,7 @@ public class ParticleArray : MonoBehaviour
     public string currentNum1; //pega o número da sprite da partícula original1
     public string currentNum2; //pega o número da sprite da partícula original2
 
-    public static bool settou1 = false;
+    public bool settou1 = false;
 
     void Awake()
     {

@@ -40,7 +40,6 @@ public class CanvasManager : MonoBehaviour
 
     public void DisablePauseMenu()
     {
-        DesativaMovPlayer.desMov.AtivaMov();
         if (!ListaDeEventosJogo.pausar)
         {
             pauseMenu.SetActive(false);
@@ -51,10 +50,13 @@ public class CanvasManager : MonoBehaviour
         {
             menuSuspeitos.SetActive(false);
             ListaDeEventosJogo.pausar = false;
+            DesativaMovPlayer.desMov.DesativaMov();
         }
 
         jogoPausado = false;
         SoundManager.sound.Ambiente();
+        DesativaMovPlayer.desMov.AtivaMov();
+        DesativaMovPlayer.desMov.DesativaCursor();
 
         if(EstadosPlayer.estadoCheirando)
         {

@@ -8,8 +8,6 @@ public class ScriptTutorial : MonoBehaviour
     int parteTutorial;
     //lista de falas da vovózinha cuti cuti
     public GameObject[] listaFalas;
-    //hitboxes do tutorial
-    public GameObject limite1, limite2;
     //caixas de texto para lembrar o jogador do que se tem que fazer
     public GameObject auxilioMorder, auxilioCheirar, auxilioJuntar, setaBarraCheiro, indicaCesta, caixaDeFundo;
     // ativa NPC que segue
@@ -19,14 +17,14 @@ public class ScriptTutorial : MonoBehaviour
 
     public static bool pularTutorial;
 
+    bool completouPasso = false; //tocar som quando completa uma parte do tutorial
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         parteTutorial = 1;
-        limite1.SetActive(true);
-        limite2.SetActive(true);
 
         if (terminouTutorial)
         {
@@ -57,17 +55,23 @@ public class ScriptTutorial : MonoBehaviour
 
         else if (parteTutorial == 2)
         {
-            limite1.SetActive(true);
             auxilioMorder.SetActive(true);
             if (Morder.morderTutorial || pularTutorial)
             {
                 auxilioMorder.SetActive(false);
                 ProximoTutorial();
+                completouPasso = true;
             }
         }
 
         else if (parteTutorial == 3)
         {
+            if(completouPasso)
+            {
+                SoundManager.sound.TutorialStep();
+                completouPasso = false;
+            }
+            
             if (!pularTutorial)
                 ChamaFala(1);
 
@@ -87,11 +91,18 @@ public class ScriptTutorial : MonoBehaviour
             {
                 auxilioCheirar.SetActive(false);
                 ProximoTutorial();
+                completouPasso = true;
             }
         }
 
         else if (parteTutorial == 5)
         {
+            if(completouPasso)
+            {
+                SoundManager.sound.TutorialStep();
+                completouPasso = false;
+            }
+            
             setaBarraCheiro.SetActive(true);
             caixaDeFundo.SetActive(false);
             if (!pularTutorial)
@@ -111,8 +122,6 @@ public class ScriptTutorial : MonoBehaviour
             {
                 setaBarraCheiro.SetActive(false);
                 caixaDeFundo.SetActive(true);
-                limite1.SetActive(false);
-                limite2.SetActive(true);
                 if (!pularTutorial)
                     ChamaFala(3);
 
@@ -146,7 +155,6 @@ public class ScriptTutorial : MonoBehaviour
                 listaFalas[4].SetActive(false);
                 ProximoTutorial();
             }
-            limite2.SetActive(false);
         }
 
         else if (parteTutorial >= 9)
@@ -158,11 +166,10 @@ public class ScriptTutorial : MonoBehaviour
 
     public void FechaTutorial()
     {
+        SoundManager.sound.TutorialComplete();
         indicaCesta.SetActive(true);
         NPC.GetComponent<BehaviorExecutor>().enabled = true;
         terminouTutorial = true;
-        limite1.SetActive(false);
-        limite2.SetActive(false);
         this.gameObject.SetActive(false);
         DesativaMovPlayer.desMov.AtivaMov();
     }
