@@ -74,7 +74,7 @@ public class Morder : MonoBehaviour
         objetoNaBoca.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         objetoNaBoca.GetComponent<Rigidbody>().isKinematic = false;
         manterNaBoca = false;
-        objetoNaBoca.layer = 12;
+        //objetoNaBoca.layer = 12;
         objetoNaBoca = null;
     }
 

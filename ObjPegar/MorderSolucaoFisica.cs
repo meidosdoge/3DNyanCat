@@ -29,6 +29,7 @@ public class MorderSolucaoFisica : MonoBehaviour
             caindo = false;
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             DesativaMovPlayer.desMov.AtivaMov();
+            this.gameObject.layer = 12;
         }
     }
 }

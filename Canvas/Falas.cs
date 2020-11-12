@@ -15,7 +15,8 @@ public class Falas : MonoBehaviour
     public string texto;
 
     //letras Por Segundo 
-    public float LPS, LPSOriginal;
+    public float LPS;
+    float LPSOriginal;
 
     //timer para colocar a proxima letra
     float tempo;
