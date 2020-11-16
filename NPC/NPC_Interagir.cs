@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class NPC_Interagir : MonoBehaviour
 {
+    public Animator animNpc;
+
     public GameObject player;
     public NavMeshAgent navMesh;
 
@@ -26,12 +28,17 @@ public class NPC_Interagir : MonoBehaviour
         if(Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z),
         new Vector2 (player.transform.position.x, player.transform.position.z)) < 1)
         {
+
+            animNpc.SetBool("Pegou", true);
+
             StartCoroutine(Reseta(1f));
         }
     }
 
     void Perseguir()
     {
+        animNpc.SetBool("Sentado", false);
+        animNpc.SetInteger("EstadosNpc", 2);
         perseguindo = true;
         navMesh.speed = 4;
         SoundManager.sound.CorreNPC(true);
@@ -39,6 +46,8 @@ public class NPC_Interagir : MonoBehaviour
 
     void Andar()
     {
+        animNpc.SetBool("Sentado", false);
+        animNpc.SetInteger("EstadosNpc", 1);
         perseguindo = false;
         navMesh.speed = 2;
         SoundManager.sound.PassosNPC(true);
@@ -46,11 +55,15 @@ public class NPC_Interagir : MonoBehaviour
 
     void Parar()
     {
+        animNpc.SetInteger("EstadosNpc", 0);
         perseguindo = false;
         navMesh.speed = 0;
         SoundManager.sound.PassosNPC(false);
         SoundManager.sound.CorreNPC(false);
         transform.LookAt(direcionarNPC.transform.position);
+        //se o NPC parar e estiver olhando para a televisao, ele passa para a animação de sentar e dps a de ficar sentado
+        if (direcionarNPC.transform.name == "tellevisao")
+            animNpc.SetBool("Sentado", true);
     }
 
     void ControlaTV(GameObject direcao)
@@ -97,5 +110,6 @@ public class NPC_Interagir : MonoBehaviour
         fade.SetBool("Fade", true);
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene(1);
+        animNpc.SetBool("Pegou", false);
     }
 }
