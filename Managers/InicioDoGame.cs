@@ -22,6 +22,9 @@ public class InicioDoGame : MonoBehaviour
         }
 
         SoundManager.sound.Ambiente();
+
+        Farejar.efeitoNegativo = false;
+        Farejar.efeitoPositivo = false;
     }
 
     private void Start()

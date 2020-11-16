@@ -108,6 +108,11 @@ public class NPC_Interagir : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         fade.SetBool("Fade", true);
+
+        Farejar.efeitoNegativo = false;
+        Farejar.efeitoPositivo = false;
+        Time.timeScale = 1;
+        
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene(1);
         animNpc.SetBool("Pegou", false);

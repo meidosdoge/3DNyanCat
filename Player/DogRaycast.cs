@@ -93,6 +93,7 @@ public class DogRaycast : MonoBehaviour
                 {
                     bocaDog = true;
                     fucinhoDog = true;
+                    Farejar.efeitoPositivo = false;
 
                     //armazena o gameobject q está com o mouse em cima para passar essa informação
                     //pros outros scripts de morder e cheirar
