@@ -22,6 +22,15 @@ public class Farejar : MonoBehaviour
     //tempo em camera lenta do TimeScale
     public float cameraLenta = 0.4f;
 
+    //buff debuff
+    public static bool efeitoPositivo = false;
+    public static bool efeitoNegativo = false;
+
+    public Sprite [] barraBackground;
+    public Sprite [] barraStates;
+
+    public GameObject barraBack, barraStat;
+
     private void Start()
     {
         PegaEventoParaExecutar.desativaCheirar += VisaoOff;
@@ -42,6 +51,8 @@ public class Farejar : MonoBehaviour
             else if(farejaDur >= uso && Input.GetMouseButtonDown(1) && DogRaycast.fucinhoDog)
             {
                 VisaoOn();
+
+                MudaBarra();
             }
 
             
@@ -50,10 +61,37 @@ public class Farejar : MonoBehaviour
             {
                 farejaDur -= Time.deltaTime * uso;
             }
-            else if(farejaDur < 100)
+            else if(farejaDur < 100 && !efeitoNegativo)
             {
                 farejaDur += Time.deltaTime * regenera;
             }
+        }
+    }
+
+    void MudaBarra()
+    {
+        if(efeitoPositivo)
+        {
+            //barrinha azul
+            barraBack.GetComponent<Image>().sprite = barraBackground[1];
+            barraStat.GetComponent<Image>().sprite = barraStates[1];
+            farejaDur = 100;
+            SoundManager.sound.CheiroBom();
+        }
+        else if(efeitoNegativo)
+        {
+            //barrinha vermelha
+            barraBack.GetComponent<Image>().sprite = barraBackground[2];
+            barraStat.GetComponent<Image>().sprite = barraStates[2];
+            if(farejaDur > 25)
+                farejaDur = 25;
+            SoundManager.sound.CheiroRuim();
+        }
+        else
+        {
+            //barrinha padrão
+            barraBack.GetComponent<Image>().sprite = barraBackground[0];
+            barraStat.GetComponent<Image>().sprite = barraStates[0];
         }
     }
 

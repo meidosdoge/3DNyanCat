@@ -24,6 +24,8 @@ public class SoundManager : MonoBehaviour
     public GameObject dogLate;
 
     public GameObject misturaCheiro;
+    public GameObject cheiroRuim;
+    public GameObject cheiroBom;
 
     [Header("Sons do NPC")]
     public GameObject vozNPC;
@@ -134,6 +136,16 @@ public class SoundManager : MonoBehaviour
         {
             misturaCheiro.SetActive(false);
         }
+    }
+
+    public void CheiroRuim()
+    {
+        cheiroRuim.SetActive(true);
+    }
+
+    public void CheiroBom()
+    {
+        cheiroBom.SetActive(true);
     }
 
     //////////sons do npc

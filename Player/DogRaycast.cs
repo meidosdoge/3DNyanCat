@@ -58,6 +58,24 @@ public class DogRaycast : MonoBehaviour
                     fucinhoDog = true;
                     bocaDog = false;
 
+                    if(whatIHit.transform.gameObject.name == "Flor" 
+                    || whatIHit.transform.gameObject.name == "terra")
+                    {
+                        Farejar.efeitoPositivo = true;
+                        Farejar.efeitoNegativo = false;
+                    }
+                    else if(whatIHit.transform.gameObject.name == "cesta de frutas" 
+                    || whatIHit.transform.gameObject.name == "ProdutoLimpeza"
+                    || whatIHit.transform.gameObject.name == "perfume")
+                    {
+                        Farejar.efeitoNegativo = true;
+                        Farejar.efeitoPositivo = false;
+                    }
+                    else
+                    {
+                        Farejar.efeitoPositivo = false;
+                    }
+
                     //armazena o gameobject q está com o mouse em cima para passar essa informação
                     //pros outros scripts de morder e cheirar
                     objSendoObservado = whatIHit.transform.gameObject;
