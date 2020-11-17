@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EstadosPlayer : MonoBehaviour
 {
+    public GameObject terreo;
+
     public static string estadoMovimentacao = "idle";
     public static bool estadoMordendo = false, estadoCheirando = false;
 
@@ -37,6 +39,15 @@ public class EstadosPlayer : MonoBehaviour
             case "cheirando":
                 estadosAnimacao.SetInteger("EstadoPlayer", 3);
                 break;
+        }
+
+        if (terreo.activeInHierarchy)
+        {
+            estadosAnimacao.SetFloat("VelWalk", 3.5f);
+        }
+        else
+        {
+            estadosAnimacao.SetFloat("VelWalk", 5.5f);
         }
     }
 }
