@@ -7,6 +7,7 @@ public class Cheats : MonoBehaviour
     public GameObject player, mainCanvas;
     public GameObject apto1, terreo;
     public GameObject apto2, apto3, apto4;
+    public GameObject tela, holder, ganhou;
     private CanvasManager cvm;
 
     void Awake()
@@ -23,7 +24,10 @@ public class Cheats : MonoBehaviour
 
     public void EscolheInimigo()
     {
-        //cheat futuro pra levar pra cena final de vitória do jogo
+        cvm.DisablePauseMenu();
+        tela.SetActive(true);
+        ganhou.SetActive(true);
+        holder.SetActive(true);
     }
 
     public void AtivaCheiros(GameObject obj)
