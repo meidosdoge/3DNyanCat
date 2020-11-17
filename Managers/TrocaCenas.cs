@@ -8,6 +8,9 @@ public class TrocaCenas : MonoBehaviour
     public void ChangeScene(string cena)
     {
         SceneManager.LoadScene(cena);
+        Farejar.efeitoNegativo = false;
+        Farejar.efeitoPositivo = false;
+        Time.timeScale = 1;
     }
 
     public void CloseGame()
